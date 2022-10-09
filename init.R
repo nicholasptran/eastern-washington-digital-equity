@@ -3,7 +3,9 @@ helpers.installPackages(
   "tidyverse",
   "DT",
   "mongolite",
-  "shinyjs"
+  "shinyjs",
+  "pool",
+  "RPostgres"
 )
 
 # packages <- c(
