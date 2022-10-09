@@ -2,7 +2,6 @@ helpers.installPackages(
   "shiny",
   "tidyverse",
   "DT",
-  "mongolite",
   "shinyjs",
   "pool",
   "RPostgres"
@@ -12,7 +11,6 @@ helpers.installPackages(
 #   "shiny",
 #   "tidyverse",
 #   "DT",
-#   "mongolite",
 #   "shinyjs"
 # )
 

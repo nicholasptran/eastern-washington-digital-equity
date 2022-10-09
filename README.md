@@ -12,16 +12,3 @@
 
 <https://data-spokane.opendata.arcgis.com/datasets/spokane::census-tracts-2010/explore?location=47.720667%2C-117.258483%2C10.21&showTable=true>
 
-
-## libraries
-RSQLite
-
-Shiny
-
-tidyverse
-
-rsconnect
-
-DBI
-
-mongolite

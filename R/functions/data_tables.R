@@ -1,5 +1,6 @@
 library(shiny)
 library(DT)
+
 # datatable templates
 dt1 <- function(nameOfDataset) {
     renderDT(
