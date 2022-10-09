@@ -1,6 +1,6 @@
-library(tidyverse)
-library(shinyjs)
 source("server.R")
+
+library(shinyjs)
 
 ui <- fluidPage(
   useShinyjs(),

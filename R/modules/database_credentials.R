@@ -1,5 +1,6 @@
 library(RPostgres)
 library(DBI)
+library(pool)
 
 # con <- dbConnect(Postgres(),
 #   dbname = "dakj5goln6tg15",
