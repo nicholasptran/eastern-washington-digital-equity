@@ -32,6 +32,7 @@ server <- function(input, output, session) {
     dbGetQuery(pool, query)
     removeModal()
   })
+  
 
   output$variableTable <- dt1(variables)
 }
