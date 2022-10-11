@@ -2,15 +2,16 @@ helpers.installPackages(
   "shiny",
   "tidyverse",
   "DT",
-  "mongolite",
-  "shinyjs"
+  "shinyjs",
+  "pool",
+  "RPostgres",
+  "uuid"
 )
 
 # packages <- c(
 #   "shiny",
 #   "tidyverse",
 #   "DT",
-#   "mongolite",
 #   "shinyjs"
 # )
 
