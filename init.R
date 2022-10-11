@@ -4,7 +4,8 @@ helpers.installPackages(
   "DT",
   "shinyjs",
   "pool",
-  "RPostgres"
+  "RPostgres",
+  "uuid"
 )
 
 # packages <- c(

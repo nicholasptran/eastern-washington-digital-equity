@@ -2,6 +2,7 @@ library(RPostgres)
 library(DBI)
 library(pool)
 library(tidyverse)
+library(shiny)
 
 
 pool <- dbPool(Postgres(),
@@ -21,4 +22,4 @@ variables <- pool %>%
   tbl("variables") %>%
   data.frame()
 
-variables
+

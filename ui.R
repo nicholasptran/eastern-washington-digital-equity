@@ -4,7 +4,21 @@ library(shinyjs)
 
 ui <- fluidPage(
   useShinyjs(),
-  h1("spokane digital equity index"),
-  dataTableOutput("variableTable")
+  title = "Spokane Digital Equity",
+  fluidRow(
+    h1("Spokane Digital Equity"),
+    fileInput(
+      inputId = "csvInput",
+      label = "Import .csv (not working)"
+    )
+  ),
 
+  br(),
+  fluidRow(
+    actionButton("addButton", "Add"),
+    actionButton("editButton", "Edit"),
+    actionButton("deleteButton", "Delete")
+  ),
+  br(),
+  dataTableOutput("variableTable", width = "100%")
 )
