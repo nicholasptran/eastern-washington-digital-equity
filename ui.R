@@ -20,5 +20,6 @@ ui <- fluidPage(
     actionButton("deleteButton", "Delete")
   ),
   br(),
-  dataTableOutput("variableTable", width = "100%")
+  dataTableOutput("variableTable", width = "100%"),
+  dataTableOutput("testData", width = "100%")
 )

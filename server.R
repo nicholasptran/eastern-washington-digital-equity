@@ -1,5 +1,6 @@
 source("R/functions/data_tables.R")
 source("R/modules/database.R")
+source("R/modules/analytics.R")
 library(tidyverse)
 library(uuid)
 library(DBI)
@@ -35,4 +36,6 @@ server <- function(input, output, session) {
   
 
   output$variableTable <- dt1(variables)
+
+  output$testData <- dt1(data)
 }
