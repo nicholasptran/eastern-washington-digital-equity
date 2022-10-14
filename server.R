@@ -37,5 +37,5 @@ server <- function(input, output, session) {
 
   output$variableTable <- dt1(variables)
 
-  output$testData <- dt1(data)
+
 }
