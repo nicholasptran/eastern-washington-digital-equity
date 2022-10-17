@@ -1,24 +1,17 @@
 source("server.R")
 
-library(shinyjs)
-
 ui <- fluidPage(
-  useShinyjs(),
   title = "Spokane Digital Equity",
   fluidRow(
-    h1("Spokane Digital Equity"),
-    fileInput(
-      inputId = "csvInput",
-      label = "Import .csv (not working)"
-    )
+    h1("Spokane Digital Equity")
   ),
 
   br(),
   fluidRow(
-    actionButton("addButton", "Add"),
-    actionButton("editButton", "Edit"),
-    actionButton("deleteButton", "Delete")
+    actionButton("add_button", "Add", icon("plus")),
+    actionButton("edit_button", "Edit", icon("edit")),
+    actionButton("delete_button", "Delete", icon("trash-alt"))
   ),
   br(),
-  dataTableOutput("variableTable", width = "100%")
+  dataTableOutput("variable_table", width = "100%")
 )
