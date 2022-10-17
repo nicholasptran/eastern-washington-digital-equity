@@ -1,8 +1,8 @@
+library(shiny)
+library(tidyverse)
 library(RPostgres)
 library(DBI)
 library(pool)
-library(tidyverse)
-library(shiny)
 
 
 pool <- dbPool(Postgres(),
@@ -21,6 +21,3 @@ onStop(function() {
 variables <- pool %>%
   tbl("variables") %>%
   data.frame()
-
-
-

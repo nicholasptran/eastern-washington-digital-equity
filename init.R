@@ -1,18 +1,17 @@
 helpers.installPackages(
   "shiny",
   "tidyverse",
-  "DT",
-  "shinyjs",
-  "pool",
   "RPostgres",
-  "uuid"
+  "DT",
+  "pool",
+  "uuid",
+  "DBI"
 )
 
 # packages <- c(
 #   "shiny",
 #   "tidyverse",
 #   "DT",
-#   "shinyjs"
 # )
 
 # install_if_missing <- function(x) {
