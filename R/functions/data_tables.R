@@ -18,7 +18,7 @@ dt1 <- function(nameOfDataset) {
                 buttons = c("csv", "excel", "pdf"),
                 text = "Download"
             ))
-        )
+        ),
     )
 }
 
