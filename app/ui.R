@@ -13,5 +13,6 @@ ui <- fluidPage(
     actionButton("delete_button", "Delete", icon("trash-alt"))
   ),
   br(),
-  dataTableOutput("variable_table", width = "100%")
+  dataTableOutput("variable_table", width = "100%"),
+  dataTableOutput("old_variable_table")
 )

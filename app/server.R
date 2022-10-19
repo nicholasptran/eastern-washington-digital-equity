@@ -1,11 +1,4 @@
-source("R/functions/data_tables.R")
-source("R/modules/database.R")
-source("R/modules/insert_into_variables.R")
-
-library(uuid)
-library(DBI)
-
-
+source("global.R")
 
 server <- function(input, output, session) {
 
@@ -131,4 +124,5 @@ server <- function(input, output, session) {
       rownames = FALSE
     )
   })
+  output$old_variable_table <- dt1(variables)
 }

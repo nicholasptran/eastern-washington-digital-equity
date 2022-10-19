@@ -1,3 +1,9 @@
 FROM ghcr.io/virtualstaticvoid/heroku-docker-r:shiny
+
+RUN apt-get update && apt-get install -y --no-install-recommends \ 
+  sudo \ 
+  libpq-dev
+
 ENV PORT=8080
-CMD ["/usr/bin/R", "--no-save", "--gui-none", "-f", "/app/run.R", "sudo apt-get install libpq-dev"]
+
+CMD ["/usr/bin/R", "--no-save", "--gui-none", "-f", "/app/run.R"]

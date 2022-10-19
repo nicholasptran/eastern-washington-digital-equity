@@ -1,5 +1,5 @@
 library(shiny)
-library(tidyverse)
+library(dplyr)
 library(RPostgres)
 library(DBI)
 library(pool)

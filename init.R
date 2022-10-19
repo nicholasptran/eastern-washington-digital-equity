@@ -1,6 +1,6 @@
 helpers.installPackages(
   "shiny",
-  "tidyverse",
+  "dplyr",
   "RPostgres",
   "DT",
   "pool",
