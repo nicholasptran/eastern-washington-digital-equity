@@ -6,5 +6,6 @@ helpers.installPackages(
   "DT",
   "pool",
   "uuid",
-  "DBI"
+  "DBI",
+  "shinydashboard"
 )
