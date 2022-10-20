@@ -1,11 +1,4 @@
-source("R/functions/data_tables.R")
-source("R/modules/database.R")
-source("R/modules/insert_into_variables.R")
-
-library(uuid)
-library(DBI)
-
-
+source("global.R")
 
 server <- function(input, output, session) {
 
@@ -14,27 +7,27 @@ server <- function(input, output, session) {
     input$submit_edit
     input$delete_button
 
-    dbReadTable(pool, "variables2")
+    DBI::dbReadTable(pool, "variables2")
   })
 
   inputForm <- function(button) {
     showModal(modalDialog(
       title = "Insert",
       textInput("name", label = "name"),
-      textInput("category", label = "category"),
+      textInput("description", label = "description"),
       textInput("link", label = "link"),
       easyClose = TRUE,
       actionButton(button, "Submit")
     ))
   }
 
-  all_fields <- c("Name", "Category", "Link")
+  all_fields <- c("Name", "Description", "Link")
 
   inputFormData <- reactive({
     inputFormData <- data.frame(
       id = UUIDgenerate(),
       name = input$name,
-      category = input$category,
+      description = input$description,
       link = input$link,
       stringsAsFactors = FALSE
     )
@@ -43,8 +36,8 @@ server <- function(input, output, session) {
 
   # add button
   appendData <- function(data) {
-    x <- sqlAppendTable(pool, "variables2", data, row.names = FALSE)
-    dbExecute(pool, x)
+    x <- DBI::sqlAppendTable(pool, "variables2", data, row.names = FALSE)
+    DBI::dbExecute(pool, x)
   }
 
   observeEvent(input$add_button, priority = 20, {
@@ -53,15 +46,15 @@ server <- function(input, output, session) {
 
   observeEvent(input$submit, priority = 20, {
     appendData(inputFormData())
-    removeModal()
+    shiny::removeModal()
   })
 
 
   # delete button
   deleteData <- reactive({
-    x <- dbReadTable(pool, "variables2")
+    x <- DBI::dbReadTable(pool, "variables2")
     y <- x[input$variable_table_rows_selected, "id"]
-    z <- lapply(y, function(nr){
+    z <- lapply(y, function(nr) {
       dbExecute(
         pool,
         sprintf('delete from "variables2" where "id" = (\'%s\')', nr)
@@ -101,7 +94,7 @@ server <- function(input, output, session) {
       inputForm("submit_edit")
 
       updateTextInput(session, "name", value = x[input$variable_table_rows_selected, "name"])
-      updateTextInput(session, "category", value = x[input$variable_table_rows_selected, "category"])
+      updateTextInput(session, "description", value = x[input$variable_table_rows_selected, "description"])
       updateTextInput(session, "link", value = x[input$variable_table_rows_selected, "link"])
     }
   })
@@ -111,10 +104,10 @@ server <- function(input, output, session) {
     y2 <- x2[input$variable_table_last_clicked, "id"]
 
     dbExecute(pool, sprintf(
-      'update "variables2" set \'name\' = ?, \'category\' = ? \'link\' = ?
+      'update "variables2" set \'name\' = ?, \'description\' = ? \'link\' = ?
       where \'id\' = (\'%s\')', y2
     ),
-    param = list(input$name, input$category, input$link)
+    param = list(input$name, input$description, input$link)
     )
   removeModal()
   })
@@ -131,4 +124,5 @@ server <- function(input, output, session) {
       rownames = FALSE
     )
   })
+  session$onSessionEnded(stopApp)
 }
