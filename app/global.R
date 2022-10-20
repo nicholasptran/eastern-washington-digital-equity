@@ -4,3 +4,4 @@ source("R/modules/insert_into_variables.R")
 
 library(uuid)
 library(DBI)
+library(dbplyr)
