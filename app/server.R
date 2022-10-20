@@ -124,5 +124,5 @@ server <- function(input, output, session) {
       rownames = FALSE
     )
   })
-  session$onSessionEnded(stopApp)
+
 }
