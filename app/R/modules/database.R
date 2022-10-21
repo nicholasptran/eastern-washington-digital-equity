@@ -18,6 +18,6 @@ onStop(function() {
 })
 
 
-variables <- pool %>%
-  tbl("variables") %>%
-  data.frame()
+# variables <<- pool %>%
+#   tbl("variables") %>%
+#   data.frame()
