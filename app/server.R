@@ -7,7 +7,7 @@ server <- function(input, output, session) {
     input$submit_edit
     input$delete_button
 
-    DBI::dbReadTable(pool, "variables2")
+    DBI::dbReadTable(con, "variables2")
   })
 
   inputForm <- function(button) {
@@ -36,8 +36,8 @@ server <- function(input, output, session) {
 
   # add button
   appendData <- function(data) {
-    x <- DBI::sqlAppendTable(pool, "variables2", data, row.names = FALSE)
-    DBI::dbExecute(pool, x)
+    x <- DBI::sqlAppendTable(con, "variables2", data, row.names = FALSE)
+    DBI::dbExecute(con, x)
   }
 
   observeEvent(input$add_button, priority = 20, {
@@ -52,11 +52,11 @@ server <- function(input, output, session) {
 
   # delete button
   deleteData <- reactive({
-    x <- DBI::dbReadTable(pool, "variables2")
+    x <- DBI::dbReadTable(con, "variables2")
     y <- x[input$variable_table_rows_selected, "id"]
     z <- lapply(y, function(nr) {
       dbExecute(
-        pool,
+        con,
         sprintf('delete from "variables2" where "id" = (\'%s\')', nr)
       )
     })
@@ -71,7 +71,7 @@ server <- function(input, output, session) {
 
   # edit button
   observeEvent(input$edit_button, priority = 20, {
-    x <- dbReadTable(pool, "variables2")
+    x <- dbReadTable(con, "variables2")
 
     showModal(
       if (length(input$variable_table_rows_selected) > 1) {
@@ -100,10 +100,10 @@ server <- function(input, output, session) {
   })
 
   observeEvent(input$submit_edit, priority = 20, {
-    x2 <- dbReadTable(pool, "variables2")
+    x2 <- dbReadTable(con, "variables2")
     y2 <- x2[input$variable_table_last_clicked, "id"]
 
-    dbExecute(pool, sprintf(
+    dbExecute(con, sprintf(
       'update "variables2" set \'name\' = ?, \'description\' = ? \'link\' = ?
       where \'id\' = (\'%s\')', y2
     ),

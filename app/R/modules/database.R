@@ -5,20 +5,27 @@ library(DBI)
 library(pool)
 
 
-pool <- dbPool(Postgres(),
-  dbname = "dakj5goln6tg15",
-  host = "ec2-44-207-133-100.compute-1.amazonaws.com",
-  port = 5432,
-  user = "drpevzrnxesrae",
-  password = "e3f84705089a803f65456ceae142a0579246aa21d5d78c5bd466ce0fee970f92"
+con <- dbConnect(Postgres(),
+  dbname = Sys.getenv("DATABASE_NAME"),
+  host = Sys.getenv("DATABASE_HOST"),
+  port = Sys.getenv("DATABASE_PORT"),
+  user = Sys.getenv("DATABASE_USER"),
+  password = Sys.getenv("DATABASE_PASSWORD")
 )
 
+variableTable <- c(
+  "name" = "varchar",
+  "description" = "varchar",
+  "link" = "varchar"
+)
+dbCreateTable(con,
+  "variables2",
+  variableTable
+)
+
+
 onStop(function() {
-  poolClose(pool)
+  poolClose(con)
 })
 
-db_string <- Sys.getenv("DATABASE_URL")
 
-# variables <<- pool %>%
-#   tbl("variables") %>%
-#   data.frame()
