@@ -31,7 +31,10 @@ body <- dashboardBody(
       "x - x bar / S",
       "normalization",
       "categorical",
-      "by tract"
+      "by tract",
+      br(),
+      db_string,
+      print(db_string)
     ),
     tabItem(
       tabName = "variables",

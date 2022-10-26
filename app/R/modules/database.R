@@ -17,6 +17,7 @@ onStop(function() {
   poolClose(pool)
 })
 
+db_string <- Sys.getenv("DATABASE_URL")
 
 # variables <<- pool %>%
 #   tbl("variables") %>%
