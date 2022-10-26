@@ -13,19 +13,18 @@ con <- dbConnect(Postgres(),
   password = Sys.getenv("DATABASE_PASSWORD")
 )
 
-variableTable <- c(
-  "name" = "varchar",
-  "description" = "varchar",
-  "link" = "varchar"
+variables2 <- data.frame(
+  id = character(),
+  name = character(),
+  description = character(),
+  link = character(),
+  stringsAsFactors = FALSE
 )
-dbCreateTable(con,
-  "variables2",
-  variableTable
-)
+
+
+dbWriteTable(con, "variables2", variables2, overwrite = FALSE, append = TRUE)
 
 
 onStop(function() {
-  poolClose(con)
+  dbDisconnect(con)
 })
-
-
