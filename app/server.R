@@ -13,7 +13,7 @@ server <- function(input, output, session) {
     showModal(modalDialog(
       title = "Insert",
       textInput("name", label = "name"),
-      textInput("description", label = "description"),
+      textAreaInput("description", label = "description"),
       textInput("link", label = "link"),
       easyClose = TRUE,
       actionButton(button, "Submit")
@@ -122,4 +122,7 @@ server <- function(input, output, session) {
       rownames = FALSE
     )
   })
+
+  output$dirty_data_table <- renderDataTable(dirty_data)
+  output$clean_data_table <- renderDataTable(clean_data)
 }
