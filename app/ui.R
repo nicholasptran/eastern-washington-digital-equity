@@ -58,7 +58,21 @@ body <- dashboardBody(
       variables were created for each code per column(a = 1, b = 2, etc.)
       to allow for analysis of the data.",
       br(),
-      #
+      br(),
+
+      # show data before/after
+      tabBox(
+        title = "Original / Cleaned Data",
+        id = "og_clean_box", width = "100%",
+        tabPanel(
+          "Original",
+          dataTableOutput("dirty_data_table")
+        ),
+        tabPanel(
+          "Cleaned",
+          dataTableOutput("clean_data_table")
+        )
+      )
     ),
 
     # VARIABLES TAB
