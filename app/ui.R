@@ -22,9 +22,14 @@ body <- dashboardBody(
 
       # INTRODUCTION
       h2("Introduction"),
-      "This index was created with the intention to determine areas in
-      Spokane which do not have access to affordable high speed internet
-      by tract.",
+      "This tract-level digital equity index was created to ensure that
+      residents of the Greater Spokane area have equitable access to high-speed
+      internet by improving the availability of affordable broadband services in
+      un-served and underserved tracts. The index consists of tract-level
+      indicators meant to measure, provide the aspects of digital equity
+      (access, affordability, and meaningful use), and gives an insight
+      of areas which will be greatly impacted with targeted funding
+      assistance.",
       br(),
 
       # DATA COLLECTION PROCESS
