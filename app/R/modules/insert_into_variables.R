@@ -10,4 +10,4 @@ variables2 <- data.frame(
 )
 
 
-dbWriteTable(CON, "variables2", variables2, overwrite = FALSE, append = TRUE)
+dbWriteTable(con, "variables2", variables2, overwrite = FALSE, append = TRUE)
