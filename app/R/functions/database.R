@@ -13,18 +13,6 @@ con <- dbConnect(Postgres(),
   password = Sys.getenv("DATABASE_PASSWORD")
 )
 
-variables2 <- data.frame(
-  id = character(),
-  name = character(),
-  description = character(),
-  link = character(),
-  stringsAsFactors = FALSE
-)
-
-
-dbWriteTable(con, "variables2", variables2, overwrite = FALSE, append = TRUE)
-
-
 onStop(function() {
   dbDisconnect(con)
 })

@@ -1,13 +1,12 @@
 source("global.R")
 
 server <- function(input, output, session) {
-
   insert_input <- reactive({
     input$submit
     input$submit_edit
     input$delete_button
 
-    DBI::dbReadTable(con, "variables2")
+    DBI::dbReadTable(con, "variables")
   })
 
   inputForm <- function(button) {
@@ -36,7 +35,7 @@ server <- function(input, output, session) {
 
   # add button
   appendData <- function(data) {
-    x <- DBI::sqlAppendTable(con, "variables2", data, row.names = FALSE)
+    x <- DBI::sqlAppendTable(con, "variables", data, row.names = FALSE)
     DBI::dbExecute(con, x)
   }
 
@@ -52,12 +51,12 @@ server <- function(input, output, session) {
 
   # delete button
   deleteData <- reactive({
-    x <- DBI::dbReadTable(con, "variables2")
+    x <- DBI::dbReadTable(con, "variables")
     y <- x[input$variable_table_rows_selected, "id"]
     z <- lapply(y, function(nr) {
       dbExecute(
         con,
-        sprintf('delete from "variables2" where "id" = (\'%s\')', nr)
+        sprintf('delete from "variables" where "id" = (\'%s\')', nr)
       )
     })
   })
@@ -71,7 +70,7 @@ server <- function(input, output, session) {
 
   # edit button
   observeEvent(input$edit_button, priority = 20, {
-    x <- dbReadTable(con, "variables2")
+    x <- dbReadTable(con, "variables")
 
     showModal(
       if (length(input$variable_table_rows_selected) > 1) {
@@ -80,8 +79,7 @@ server <- function(input, output, session) {
           paste("Only select 1 row."),
           easyClose = TRUE
         )
-      }
-      else if (length(input$variable_table_rows_selected) < 1) {
+      } else if (length(input$variable_table_rows_selected) < 1) {
         modalDialog(
           title = "Error",
           paste("Select a row."),
@@ -90,7 +88,7 @@ server <- function(input, output, session) {
       }
     )
 
-    if(length(input$variable_table_rows_selected) == 1) {
+    if (length(input$variable_table_rows_selected) == 1) {
       inputForm("submit_edit")
 
       updateTextInput(session, "name", value = x[input$variable_table_rows_selected, "name"])
@@ -100,16 +98,16 @@ server <- function(input, output, session) {
   })
 
   observeEvent(input$submit_edit, priority = 20, {
-    x2 <- dbReadTable(con, "variables2")
+    x2 <- dbReadTable(con, "variables")
     y2 <- x2[input$variable_table_last_clicked, "id"]
 
     dbExecute(con, sprintf(
-      'update "variables2" set \'name\' = ?, \'description\' = ? \'link\' = ?
+      'update "variables" set \'name\' = ?, \'description\' = ? \'link\' = ?
       where \'id\' = (\'%s\')', y2
     ),
     param = list(input$name, input$description, input$link)
     )
-  removeModal()
+    removeModal()
   })
 
   # render variable table
@@ -124,5 +122,4 @@ server <- function(input, output, session) {
       rownames = FALSE
     )
   })
-
 }
