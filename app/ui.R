@@ -61,7 +61,9 @@ body <- dashboardBody(
       counties in their own columns to begin analysis.",
       "The FCC data was categorical instead of numerical. Dummy
       variables were created for each code per column(a = 1, b = 2, etc.)
-      to allow for analysis of the data.",
+      to allow for analysis of the data. Data provided from the FCC was only
+      provided with block codes, so we joined a table with counties, tract
+      numbers, and the block codes to group by county.",
       br(),
       br(),
 
