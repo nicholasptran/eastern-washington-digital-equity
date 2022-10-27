@@ -3,7 +3,7 @@ library(DT)
 
 # datatable templates
 dt1 <- function(nameOfDataset) {
-    renderDT(
+    renderDataTable(
         nameOfDataset,
         style = "bootstrap",
         filter = "top",
@@ -23,7 +23,7 @@ dt1 <- function(nameOfDataset) {
 }
 
 dt2 <- function(nameOfDataset) {
-    renderDT(
+    renderDataTable(
         nameOfDataset,
         style = "bootstrap",
         filter = "top",

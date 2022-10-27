@@ -123,6 +123,54 @@ server <- function(input, output, session) {
     )
   })
 
-  output$dirty_data_table <- renderDataTable(dirty_data)
-  output$clean_data_table <- renderDataTable(clean_data)
+  output$dirty_data_table <- renderDataTable(head(dirty_data))
+  output$clean_data_table <- renderDataTable(head(household_income_data))
+  output$hh_income_table <- renderDataTable(head(household_income_data))
+  output$ss_income_table <- renderDataTable(head(ss_income_data))
+  output$public_assistance_table <- renderDataTable(head(public_assistance_data))
+  output$naturalization_table <- renderDataTable(head(naturalization_data))
+  output$nativity_table <- renderDataTable(head(nativity_data))
+  output$transporation_table <- renderDataTable(head(transportation_data))
+  output$poverty_table <- renderDataTable(head(poverty_data))
+  output$types_computer_table <- renderDataTable(head(types_computer_data))
+  output$presence_computer_table <- renderDataTable(head(presence_computer_data))
+  output$internet_subscription_table <- renderDataTable(head(internet_subscription_data))
+  output$voting_age_table <- renderDataTable(head(voting_age_data))
+  output$occupation_over_16_table <- renderDataTable(head(occupation_over_16_data))
+  output$type_computer_internet_sub_table <- renderDataTable(head(type_computer_internet_sub_data))
+
+  # ANALYSIS PAGE
+  output$sum_hh <- renderDataTable(summ_hh)
+  output$sum_ss <- renderDataTable(summ_ss)
+  output$sum_pad <- renderDataTable(summ_pad)
+  output$sum_naturalization <- renderDataTable(summ_naturalization)
+  output$sum_nativity <- renderDataTable(summ_nativity)
+  output$sum_transportation <- renderDataTable(summ_transportation)
+  output$sum_poverty <- renderDataTable(summ_poverty)
+  output$sum_type_comp <- renderDataTable(summ_type_comp)
+  output$sum_presence_comp <- renderDataTable(summ_presence_comp)
+  output$sum_internet_sub <- renderDataTable(summ_internet_sub)
+  output$sum_voting_age <- renderDataTable(summ_voting_age)
+  output$sum_occupation <- renderDataTable(summ_occupation)
+  output$sum_type_comp_internet <- renderDataTable(summ_type_comp_internet)
+  output$sum_type_internet_sub <- renderDataTable(summ_type_internet_sub)
+
+
+
+  # areaReactive <- reactive(
+  #   DBI::dbReadTable(con, "area_data")
+  # )
+
+  # waFixedReactive <- reactive(
+  #   DBI::dbReadTable(con, "wa_fixed_data")
+  # )
+
+  # countyReactive <- reactive(
+  #   DBI::dbReadTable(con, "county_info")
+  # )
+
+  # output$area_table <- renderDataTable(table <- areaReactive(),
+  #   table <- datatable(table))
+  # output$wa_fixed_table <- renderDataTable(table <- waFixedReactive())
+  # output$county_table <- renderDataTable(table <- countyReactive())
 }

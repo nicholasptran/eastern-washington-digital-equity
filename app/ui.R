@@ -92,13 +92,106 @@ body <- dashboardBody(
         actionButton("delete_button", "Delete", icon("trash-alt"))
       ),
       br(),
-      dataTableOutput("variable_table", width = "100%")
+      dataTableOutput("variable_table", width = "100%"),
+      br(),
+      h1("Datasets"),
+      tabBox(
+        title = "Datasets",
+        id = "dataset_box", width = "100%",
+        tabPanel("HH Income", dataTableOutput("hh_income_table")),
+        tabPanel("SS Income", dataTableOutput("ss_income_table")),
+        tabPanel(
+          "Public Assistance",
+          dataTableOutput("public_assistance_table")
+        ),
+        tabPanel("Naturalization", dataTableOutput("naturalization_table")),
+        tabPanel("Nativity", dataTableOutput("nativity_table")),
+        tabPanel("Transportation", dataTableOutput("transportation_table")),
+        tabPanel("Poverty", dataTableOutput("poverty_table")),
+        tabPanel("Types Computer", dataTableOutput("types_computer_table")),
+        tabPanel(
+          "Presence Computer",
+          dataTableOutput("presence_computer_table")
+        ),
+        tabPanel(
+          "Internet Subscription",
+          dataTableOutput("internet_subscription_table")
+        ),
+        tabPanel("Voting Age", dataTableOutput("voting_age_table")),
+        tabPanel("Occupation", dataTableOutput("occupation_over_16_table")),
+        tabPanel(
+          "Types Computer/Internet Subscription",
+          dataTableOutput("type_computer_internet_sub_table")
+        ),
+        # tabPanel("Areas", dataTableOutput("area_table")),
+        # tabPanel("Broadband", dataTableOutput("wa_fixed_table")),
+        # tabPanel("County", dataTableOutput("county_table")),
+      )
     ),
 
     # ANALYSIS TAB
     tabItem(
       tabName = "analysis",
-      h1("Analysis")
+      h1("Analysis"),
+      br(),
+      h2("Summarized Statistics and Visualization"),
+      #
+
+      h3("Household Income"),
+      dataTableOutput("sum_hh"),
+
+      #
+
+      h3("Social Security Income"),
+      dataTableOutput("sum_ss"),
+      #
+
+      h3("Public Assistance Data"),
+      dataTableOutput("sum_pad"),
+      #
+
+      h3("Naturalization"),
+      dataTableOutput("sum_naturalization"),
+      #
+
+      h3("Nativity"),
+      dataTableOutput("sum_nativity"),
+      #
+
+      h3("Transportation"),
+      dataTableOutput("sum_transportation"),
+      # 
+
+      h3("Poverty"),
+      dataTableOutput("sum_poverty"),
+      # 
+
+      h3("Types of Computer"),
+      dataTableOutput("sum_type_comp"),
+      #
+
+      h3("Presence of Computer"),
+      dataTableOutput("sum_presence_comp"),
+      #
+
+      h3("Internet Subscriptions"),
+      dataTableOutput("sum_internet_sub"),
+      #
+
+      h3("Voting Age"),
+      dataTableOutput("sum_voting_age"),
+      #
+
+      h3("Occupation"),
+      dataTableOutput("sum_occupation"),
+      #
+
+      h3("Types of Computer/Internet"),
+      dataTableOutput("sum_type_comp_internet"),
+      #
+
+      h3("Types of Internet Subscriptions"),
+      dataTableOutput("sum_type_internet_sub")
     )
   )
 )
