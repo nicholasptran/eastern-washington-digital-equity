@@ -37,9 +37,9 @@ voting_age_data <- read.csv("data/B29002 CITIZEN, VOTING-AGE POPULATION BY EDUCA
 occupation_over_16_data <- read.csv("data/OCCUPATION_BY_SEX_FOR_THE_FULL-TIME_YEAR-ROUND_CIVILIAN_EMPLOYED_POPULATION_16_YEARS_AND_OVER.csv")
 type_computer_internet_sub_data <- read.csv("data/TYPES_OF_COMPUTERS_AND_INTERNET_SUBSCRIPTIONS.csv")
 type_internet_sub_characteristics <- read.csv("data/TYPES_OF_INTERNET_SUBSCRIPTIONS_BY_SELECTED_CHARACTERISTICS.csv")
-area_data <- tbl(con, "area_data")
-wa_fixed_data <- tbl(con, "wa_fixed_data")
-county_info <- tbl(con, "county_info")
+# area_data <- tbl(con, "area_data")
+# wa_fixed_data <- tbl(con, "wa_fixed_data")
+# county_info <- tbl(con, "county_info")
 
 summ_hh <- data.frame(describe(household_income_data))
 summ_ss <- data.frame(describe(ss_income_data))
