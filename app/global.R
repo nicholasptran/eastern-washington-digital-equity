@@ -10,7 +10,7 @@ library(shinydashboard)
 library(psych)
 
 options(
-    DT.extentions = "Scroller",
+    DT.extentions = list("Scroller, FixedHeader"),
     DT.options = list(
         server = TRUE,
         scrollY = 300,
@@ -18,7 +18,8 @@ options(
         scroller = TRUE,
         pageLength = 15,
         lengthMenu = c(15, 30, 100),
-        height = "200px"
+        height = "200px",
+        fixedHeader = TRUE
     )
 )
 
