@@ -1,11 +1,13 @@
 library(dplyr)
+library(DBI)
 
-variables2 <- data.frame(
+variables <- data.frame(
   id = character(),
   name = character(),
-  category = character(),
+  description = character(),
   link = character(),
   stringsAsFactors = FALSE
 )
 
-dbWriteTable(pool, "variables2", variables2, overwrite = FALSE, append = TRUE)
+
+dbWriteTable(con, "variables", variables, overwrite = FALSE, append = TRUE)

@@ -1,33 +1,32 @@
 source("global.R")
 
 server <- function(input, output, session) {
-
   insert_input <- reactive({
     input$submit
     input$submit_edit
     input$delete_button
 
-    dbReadTable(pool, "variables2")
+    DBI::dbReadTable(con, "variables")
   })
 
   inputForm <- function(button) {
     showModal(modalDialog(
       title = "Insert",
       textInput("name", label = "name"),
-      textInput("category", label = "category"),
+      textAreaInput("description", label = "description"),
       textInput("link", label = "link"),
       easyClose = TRUE,
       actionButton(button, "Submit")
     ))
   }
 
-  all_fields <- c("Name", "Category", "Link")
+  all_fields <- c("Name", "Description", "Link")
 
   inputFormData <- reactive({
     inputFormData <- data.frame(
       id = UUIDgenerate(),
       name = input$name,
-      category = input$category,
+      description = input$description,
       link = input$link,
       stringsAsFactors = FALSE
     )
@@ -36,8 +35,8 @@ server <- function(input, output, session) {
 
   # add button
   appendData <- function(data) {
-    x <- sqlAppendTable(pool, "variables2", data, row.names = FALSE)
-    dbExecute(pool, x)
+    x <- DBI::sqlAppendTable(con, "variables", data, row.names = FALSE)
+    DBI::dbExecute(con, x)
   }
 
   observeEvent(input$add_button, priority = 20, {
@@ -46,18 +45,18 @@ server <- function(input, output, session) {
 
   observeEvent(input$submit, priority = 20, {
     appendData(inputFormData())
-    removeModal()
+    shiny::removeModal()
   })
 
 
   # delete button
   deleteData <- reactive({
-    x <- dbReadTable(pool, "variables2")
+    x <- DBI::dbReadTable(con, "variables")
     y <- x[input$variable_table_rows_selected, "id"]
-    z <- lapply(y, function(nr){
+    z <- lapply(y, function(nr) {
       dbExecute(
-        pool,
-        sprintf('delete from "variables2" where "id" = (\'%s\')', nr)
+        con,
+        sprintf('delete from "variables" where "id" = (\'%s\')', nr)
       )
     })
   })
@@ -71,7 +70,7 @@ server <- function(input, output, session) {
 
   # edit button
   observeEvent(input$edit_button, priority = 20, {
-    x <- dbReadTable(pool, "variables2")
+    x <- dbReadTable(con, "variables")
 
     showModal(
       if (length(input$variable_table_rows_selected) > 1) {
@@ -80,8 +79,7 @@ server <- function(input, output, session) {
           paste("Only select 1 row."),
           easyClose = TRUE
         )
-      }
-      else if (length(input$variable_table_rows_selected) < 1) {
+      } else if (length(input$variable_table_rows_selected) < 1) {
         modalDialog(
           title = "Error",
           paste("Select a row."),
@@ -90,26 +88,26 @@ server <- function(input, output, session) {
       }
     )
 
-    if(length(input$variable_table_rows_selected) == 1) {
+    if (length(input$variable_table_rows_selected) == 1) {
       inputForm("submit_edit")
 
       updateTextInput(session, "name", value = x[input$variable_table_rows_selected, "name"])
-      updateTextInput(session, "category", value = x[input$variable_table_rows_selected, "category"])
+      updateTextInput(session, "description", value = x[input$variable_table_rows_selected, "description"])
       updateTextInput(session, "link", value = x[input$variable_table_rows_selected, "link"])
     }
   })
 
   observeEvent(input$submit_edit, priority = 20, {
-    x2 <- dbReadTable(pool, "variables2")
+    x2 <- dbReadTable(con, "variables")
     y2 <- x2[input$variable_table_last_clicked, "id"]
 
-    dbExecute(pool, sprintf(
-      'update "variables2" set \'name\' = ?, \'category\' = ? \'link\' = ?
+    dbExecute(con, sprintf(
+      'update "variables" set \'name\' = ?, \'description\' = ? \'link\' = ?
       where \'id\' = (\'%s\')', y2
     ),
-    param = list(input$name, input$category, input$link)
+    param = list(input$name, input$description, input$link)
     )
-  removeModal()
+    removeModal()
   })
 
   # render variable table
@@ -124,5 +122,7 @@ server <- function(input, output, session) {
       rownames = FALSE
     )
   })
-  output$old_variable_table <- dt1(variables)
+
+  output$dirty_data_table <- renderDataTable(dirty_data)
+  output$clean_data_table <- renderDataTable(clean_data)
 }
