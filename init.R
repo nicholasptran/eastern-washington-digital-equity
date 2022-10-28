@@ -8,5 +8,7 @@ helpers.installPackages(
   "uuid",
   "DBI",
   "shinydashboard",
-  "psych"
+  "psych",
+  "ggplot2",
+  "tidyr"
 )

@@ -155,6 +155,8 @@ server <- function(input, output, session) {
   output$sum_type_comp_internet <- renderDataTable(summ_type_comp_internet)
   output$sum_type_internet_sub <- renderDataTable(summ_type_internet_sub)
 
+  output$hh_plot <- renderPlot(hh_plot)
+
 
 
   # areaReactive <- reactive(

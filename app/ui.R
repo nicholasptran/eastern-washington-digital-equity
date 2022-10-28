@@ -139,7 +139,7 @@ body <- dashboardBody(
 
       h3("Household Income"),
       dataTableOutput("sum_hh"),
-
+      plotOutput("hh_plot"),
       #
 
       h3("Social Security Income"),
