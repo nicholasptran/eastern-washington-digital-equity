@@ -17,7 +17,7 @@ options(
         server = TRUE,
         scrollY = 300,
         scrollX = TRUE,
-        scroller = TRUE,
+        scroller = FALSE,
         pageLength = 15,
         lengthMenu = c(15, 30, 100),
         height = "200px",
