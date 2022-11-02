@@ -199,9 +199,6 @@ body <- dashboardBody(
 
 ui <- dashboardPage(
   dashboardHeader(title = "Spokane Digital Equity Index"),
-
-
-  # sidebar
   sidebar,
   body
 )
