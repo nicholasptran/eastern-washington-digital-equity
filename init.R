@@ -10,5 +10,6 @@ helpers.installPackages(
   "shinydashboard",
   "psych",
   "ggplot2",
-  "tidyr"
+  "tidyr",
+  "tidycensus"
 )

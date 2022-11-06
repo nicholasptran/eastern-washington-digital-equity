@@ -1,3 +1,6 @@
 libpq-dev
 libcurl4-openssl-dev
 libssl-dev
+libudunits2-dev
+libproj-dev
+libgdal-dev

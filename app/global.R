@@ -10,6 +10,7 @@ library(shinydashboard)
 library(psych)
 library(ggplot2)
 library(tidyr)
+library(tidycensus)
 
 options(
     DT.extentions = list("Scroller, FixedHeader"),
