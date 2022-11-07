@@ -2,15 +2,19 @@ source("R/functions/data_tables.R")
 source("R/functions/database.R")
 source("R/modules/insert_into_variables.R")
 source("R/modules/analysis_tab.R")
+source("R/functions/get_census_data.R")
+source("R/ui/home_tab.R")
 
 library(uuid)
-library(DBI)
-library(dbplyr)
 library(shinydashboard)
+library(DBI)
+library(dplyr)
+library(dbplyr)
+library(tidyr)
 library(psych)
 library(ggplot2)
-library(tidyr)
 library(tidycensus)
+
 
 options(
     DT.extentions = list("Scroller, FixedHeader"),
