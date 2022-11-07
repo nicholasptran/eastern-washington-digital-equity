@@ -7,13 +7,9 @@ source("R/ui/home_tab.R")
 
 library(uuid)
 library(shinydashboard)
-library(DBI)
-library(dplyr)
-library(dbplyr)
-library(tidyr)
 library(psych)
 library(ggplot2)
-library(tidycensus)
+
 
 
 options(
