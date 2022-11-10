@@ -13,19 +13,19 @@ library(ggplot2)
 
 
 options(
-    DT.extentions = list("Scroller, FixedHeader"),
-    DT.options = list(
-        server = TRUE,
-        scrollY = 300,
-        scrollX = TRUE,
-        scroller = FALSE,
-        pageLength = 15,
-        lengthMenu = c(15, 30, 100),
-        height = "200px",
-        fixedHeader = TRUE
-    ),
-    repr.plot.width = 15,
-    repr.plot.height = 5
+  DT.extentions = list("Scroller, FixedHeader"),
+  DT.options = list(
+    server = TRUE,
+    scrollY = 300,
+    scrollX = TRUE,
+    scroller = FALSE,
+    pageLength = 15,
+    lengthMenu = c(15, 30, 100),
+    height = "200px",
+    fixedHeader = TRUE
+  ),
+  repr.plot.width = 15,
+  repr.plot.height = 5
 )
 
 dirty_data <- read.csv("data/B28004.csv")
@@ -63,26 +63,25 @@ summ_type_comp_internet <- data.frame(describe(type_computer_internet_sub_data))
 summ_type_internet_sub <- data.frame(describe(type_internet_sub_characteristics))
 
 hh_plot <- household_income_data %>%
-    select(
-        With_dialup_Internet_subscription_alone_Less_than_.10.000_Income,
-        With_a_broadband_Internet_subscription_Less_than_.10.000_Income,
-        Without_an_Internet_subscription_Less_than_.10.000_Income,
-        With_dial.up_Internet_subscription_alone_.10.000_to_.19.999_Income,
-        With_a_broadband_Internet_subscription_.10.000_to_.19.999_Income,
-        Without_an_Internet_subscription_.10.000_to_.19.999_Income,
-        With_dialup_Internet_subscription_alone_.20.000_to_.34.999_Income,
-        With_a_broadband_Internet_subscription_.20.000_to_.34.999_Income,
-        Without_an_Internet_subscription_.20.000_to_.34.999_Income,
-        With_dialup_Internet_subscription_alone_.35.000_to_.49.999_Income,
-        With_a_broadband_Internet_subscription_.35.000_to_.49.999_Income,
-        Without_an_Internet_subscription_.35.000_to_.49.999_Income,
-        With_dialup_Internet_subscription_alone_.50.000_to_.74.999_Income,
-        With_a_broadband_Internet_subscription_.50.000_to_.74.999_Income,
-        Without_an_Internet_subscription_.50.000_to_.74.999_Income,
-        With_dialup_Internet_subscription_alone_.75.000_or_more_Income
-
-    ) %>% 
-    gather(key = Range, value = Value) %>% 
-    ggplot(aes(x = Value, fill = Range)) +
-    geom_histogram(position = "dodge", bins = 4) +
-    theme(legend.position = "bottom")
+  select(
+    With_dialup_Internet_subscription_alone_Less_than_.10.000_Income,
+    With_a_broadband_Internet_subscription_Less_than_.10.000_Income,
+    Without_an_Internet_subscription_Less_than_.10.000_Income,
+    With_dial.up_Internet_subscription_alone_.10.000_to_.19.999_Income,
+    With_a_broadband_Internet_subscription_.10.000_to_.19.999_Income,
+    Without_an_Internet_subscription_.10.000_to_.19.999_Income,
+    With_dialup_Internet_subscription_alone_.20.000_to_.34.999_Income,
+    With_a_broadband_Internet_subscription_.20.000_to_.34.999_Income,
+    Without_an_Internet_subscription_.20.000_to_.34.999_Income,
+    With_dialup_Internet_subscription_alone_.35.000_to_.49.999_Income,
+    With_a_broadband_Internet_subscription_.35.000_to_.49.999_Income,
+    Without_an_Internet_subscription_.35.000_to_.49.999_Income,
+    With_dialup_Internet_subscription_alone_.50.000_to_.74.999_Income,
+    With_a_broadband_Internet_subscription_.50.000_to_.74.999_Income,
+    Without_an_Internet_subscription_.50.000_to_.74.999_Income,
+    With_dialup_Internet_subscription_alone_.75.000_or_more_Income
+  ) %>%
+  gather(key = Range, value = Value) %>%
+  ggplot(aes(x = Value, fill = Range)) +
+  geom_histogram(position = "dodge", bins = 4) +
+  theme(legend.position = "bottom")
