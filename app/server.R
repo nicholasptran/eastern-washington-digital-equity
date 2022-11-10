@@ -157,8 +157,4 @@ server <- function(input, output, session) {
 
 
   output$hh_plot <- renderPlot(hh_plot)
-
-
-
-
 }

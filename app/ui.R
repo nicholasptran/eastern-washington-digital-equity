@@ -160,11 +160,11 @@ body <- dashboardBody(
 
       h3("Transportation"),
       dataTableOutput("sum_transportation"),
-      # 
+      #
 
       h3("Poverty"),
       dataTableOutput("sum_poverty"),
-      # 
+      #
 
       h3("Types of Computer"),
       dataTableOutput("sum_type_comp"),
