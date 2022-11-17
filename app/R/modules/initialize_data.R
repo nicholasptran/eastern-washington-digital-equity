@@ -19,3 +19,8 @@ type_computer <- read.csv("data/type_computer.csv")
 type_computer_urban <- read.csv("data/type_computer_urban.csv")
 voting_age <- read.csv("data/voting_age.csv")
 voting_age_urban <- read.csv("data/voting_age_urban.csv")
+
+x <- combined_data %>% 
+  pivot_wider(names_from = variable,
+  values_from = c(estimate, moe))
+View(x)

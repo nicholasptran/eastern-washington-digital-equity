@@ -2,6 +2,3 @@ app/R/scripts/
 local.R
 
 /data/
-area_table.csv
-wa_fixed.csv
-fixed_broadband.csv
