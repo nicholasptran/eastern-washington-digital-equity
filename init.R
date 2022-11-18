@@ -12,5 +12,6 @@ helpers.installPackages(
   "ggplot2",
   "tidyr",
   "tidycensus",
-  "stringr"
+  "stringr",
+  "tidyr"
 )

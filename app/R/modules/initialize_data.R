@@ -1,3 +1,5 @@
+library(tidyr)
+
 dirty_data <- read.csv("data/dirty_data.csv")
 clean_data <- read.csv("data/clean_data.csv")
 
@@ -23,4 +25,3 @@ voting_age_urban <- read.csv("data/voting_age_urban.csv")
 x <- combined_data %>% 
   pivot_wider(names_from = variable,
   values_from = c(estimate, moe))
-View(x)

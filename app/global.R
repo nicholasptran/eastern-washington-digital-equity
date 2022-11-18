@@ -1,6 +1,5 @@
 source("R/functions/data_tables.R")
 source("R/functions/database.R")
-source("R/modules/insert_into_variables.R")
 source("R/modules/analysis_tab.R")
 source("R/ui/home_tab.R")
 source("R/modules/initialize_data.R")
