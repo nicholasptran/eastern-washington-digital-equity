@@ -3,8 +3,7 @@ library(tidyr)
 dirty_data <- read.csv("data/dirty_data.csv")
 clean_data <- read.csv("data/clean_data.csv")
 
-combined_data <- read.csv("data/combined_data.csv")
-combined_data_urban <- read.csv("data/combined_data_urban.csv")
+
 household_income <- read.csv("data/household_income.csv")
 household_income_urban <- read.csv("data/household_income_urban.csv")
 internet_subscription <- read.csv("data/internet_subscription.csv")
@@ -21,7 +20,3 @@ type_computer <- read.csv("data/type_computer.csv")
 type_computer_urban <- read.csv("data/type_computer_urban.csv")
 voting_age <- read.csv("data/voting_age.csv")
 voting_age_urban <- read.csv("data/voting_age_urban.csv")
-
-x <- combined_data %>% 
-  pivot_wider(names_from = variable,
-  values_from = c(estimate, moe))

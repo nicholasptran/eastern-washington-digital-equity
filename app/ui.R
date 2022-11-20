@@ -168,15 +168,7 @@ write.csv(naturalization_urban, "app/data/naturalization_urban.csv")'),
     # VARIABLES TAB
     tabItem(
       tabName = "variables",
-      h1("Variables"),
-      fluidRow(
-        actionButton("add_button", "Add", icon("plus")),
-        actionButton("edit_button", "Edit", icon("edit")),
-        actionButton("delete_button", "Delete", icon("trash-alt"))
-      ),
-      br(),
-      dataTableOutput("variable_table", width = "100%"),
-      br(),
+      h1("Variables")
     ),
 
     # ANALYSIS TAB
