@@ -11,7 +11,7 @@ census_api_key(Sys.getenv("CENSUS_API_KEY"))
 
 
 # load variable data and transform
-variable_data <- load_variables(2020, "acs5", cache = TRUE) %>%
+variable_data <- load_variables(2020, "acs5", cache = FALSE) %>%
   rename_all(recode,
     name = "variable_key", concept = "dataset",
     label = "variable"
@@ -26,6 +26,21 @@ variable_data <- load_variables(2020, "acs5", cache = TRUE) %>%
   ) %>%
   select(-geography)
 
+variable_data2 <- load_variables(2020, "acs5/subject", cache = FALSE) %>%
+  rename_all(recode,
+    name = "variable_key", concept = "dataset",
+    label = "variable"
+  ) %>%
+  mutate(
+    dataset = tolower(dataset),
+    dataset = gsub(" ", "_", dataset),
+    variable = tolower(variable),
+    variable = gsub("!!", "_", variable),
+    variable = gsub(" ", "_", variable),
+    variable = gsub(":", "", variable)
+  )
+
+variable_data <- rbind(variable_data, variable_data2)
 
 # list of counties
 counties <- c(
