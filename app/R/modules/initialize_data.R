@@ -1,0 +1,22 @@
+library(tidyr)
+
+dirty_data <- read.csv("data/dirty_data.csv")
+clean_data <- read.csv("data/clean_data.csv")
+
+
+household_income <- read.csv("data/household_income.csv")
+household_income_urban <- read.csv("data/household_income_urban.csv")
+internet_subscription <- read.csv("data/internet_subscription.csv")
+internet_subscription_urban <- read.csv("data/internet_subscription_urban.csv")
+nativity <- read.csv("data/nativity.csv")
+nativity_urban <- read.csv("data/nativity_urban.csv")
+naturalization <- read.csv("data/naturalization.csv")
+naturalization_urban <- read.csv("data/naturalization_urban.csv")
+presence_computer <- read.csv("data/presence_computer.csv")
+presence_computer_urban <- read.csv("data/presence_computer_urban.csv")
+transportation <- read.csv("data/transportation.csv")
+transportation_urban <- read.csv("data/transportation_urban.csv")
+type_computer <- read.csv("data/type_computer.csv")
+type_computer_urban <- read.csv("data/type_computer_urban.csv")
+voting_age <- read.csv("data/voting_age.csv")
+voting_age_urban <- read.csv("data/voting_age_urban.csv")

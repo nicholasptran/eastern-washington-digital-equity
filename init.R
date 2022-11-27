@@ -2,13 +2,11 @@ helpers.installPackages(
   "shiny",
   "dplyr",
   "dbplyr",
-  "RPostgres",
   "DT",
   "pool",
-  "uuid",
-  "DBI",
   "shinydashboard",
   "psych",
   "ggplot2",
-  "tidyr"
+  "tidyr",
+  "stringr"
 )

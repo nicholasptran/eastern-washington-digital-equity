@@ -2,7 +2,7 @@ library(shiny)
 library(dplyr)
 library(RPostgres)
 library(DBI)
-library(pool)
+library(dbplyr)
 
 
 con <- dbConnect(Postgres(),
