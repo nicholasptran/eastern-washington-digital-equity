@@ -1,4 +1,2 @@
-"estimate","moe","variable","dataset"
-420894,2534,"estimate_total","nativity_in_the_united_states"
-397169,2572,"estimate_total_native","nativity_in_the_united_states"
-23725,1599,"estimate_total_foreign-born","nativity_in_the_united_states"
+"estimate_estimate_total","estimate_estimate_total_native","estimate_estimate_total_foreign-born","moe_estimate_total","moe_estimate_total_native","moe_estimate_total_foreign-born"
+420894,397169,23725,2534,2572,1599

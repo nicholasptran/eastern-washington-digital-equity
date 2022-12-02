@@ -69,7 +69,7 @@ getCensusData <- function(table) {
     ) %>%
     rename_all(recode, variable = "variable_key") %>%
     merge(variable_data, by = "variable_key") %>%
-    select(-state, -GEOID, -variable_key) %>%
+    select(-state, -GEOID, -variable_key, -dataset) %>%
     filter(county %in% counties) %>%
     pivot_wider(
       names_from = variable,
@@ -92,7 +92,12 @@ getUrbanCensusData <- function(table) {
     filter(str_detect(NAME, "Spokane")) %>%
     rename_all(recode, variable = "variable_key") %>%
     merge(variable_data, by = "variable_key") %>%
-    select(-GEOID, -NAME, -variable_key)
+    select(-GEOID, -NAME, -variable_key, -dataset) %>% 
+    pivot_wider(
+      names_from = variable,
+      values_from = c(estimate, moe)
+    )
+
 
 
   return(census_data)
