@@ -77,6 +77,7 @@ library(tidycensus)
 library(tidyr)
 library(stringr)
 library(dplyr)
+library(tidyr)
 
 
 # load your census api key with an environment variable
@@ -84,7 +85,7 @@ census_api_key(Sys.getenv("CENSUS_API_KEY"))
 
 
 # load variable data and transform
-variable_data <- load_variables(2020, "acs5", cache = TRUE) %>%
+variable_data <- load_variables(2020, "acs5", cache = FALSE) %>%
   rename_all(recode,
     name = "variable_key", concept = "dataset",
     label = "variable"
@@ -99,6 +100,21 @@ variable_data <- load_variables(2020, "acs5", cache = TRUE) %>%
   ) %>%
   select(-geography)
 
+variable_data2 <- load_variables(2020, "acs5/subject", cache = FALSE) %>%
+  rename_all(recode,
+    name = "variable_key", concept = "dataset",
+    label = "variable"
+  ) %>%
+  mutate(
+    dataset = tolower(dataset),
+    dataset = gsub(" ", "_", dataset),
+    variable = tolower(variable),
+    variable = gsub("!!", "_", variable),
+    variable = gsub(" ", "_", variable),
+    variable = gsub(":", "", variable)
+  )
+
+variable_data <- rbind(variable_data, variable_data2)
 
 # list of counties
 counties <- c(
@@ -127,8 +143,12 @@ getCensusData <- function(table) {
     ) %>%
     rename_all(recode, variable = "variable_key") %>%
     merge(variable_data, by = "variable_key") %>%
-    select(-state, -GEOID, -variable_key) %>%
-    filter(county %in% counties)
+    select(-state, -GEOID, -variable_key, -dataset) %>%
+    filter(county %in% counties) %>%
+    pivot_wider(
+      names_from = variable,
+      values_from = c(estimate, moe)
+    )
 
   return(census_data)
 }
@@ -146,11 +166,40 @@ getUrbanCensusData <- function(table) {
     filter(str_detect(NAME, "Spokane")) %>%
     rename_all(recode, variable = "variable_key") %>%
     merge(variable_data, by = "variable_key") %>%
-    select(-GEOID, -NAME, -variable_key)
+    select(-GEOID, -NAME, -variable_key, -dataset) %>% 
+    pivot_wider(
+      names_from = variable,
+      values_from = c(estimate, moe)
+    )
+
 
 
   return(census_data)
 }'),
+      "We selected a wide array of possible variables based upon criteria that
+      we believe could help explain price, speed, and access, which make up the
+      digital equity within eastern Washington. We then gathered tract-level
+      data from the 2020 U.S. Census 5-Year Estimates as part of the American
+      Community Survey.
+      Most of the data that we collected was grouped by household income. Thus,
+      when we were in the process of transforming our data, we completely took
+      out the columns that were grouped by household income and kept the
+      columns that showed only the totals of each variable. This helped in
+      comprising our data, as we had hundreds of variables even after we
+      completely dropped a few of them due to relevance. We then attempted
+      to weigh the variables on the same scale, our first method using
+      Z-scores. We took the sum in order to make an index using the Z-score
+      method. We then used the ratio method to create a ratio index by taking
+      the value of one cell and dividing it by the max value of that column
+      (for x in col, x/xmax). By using these methods, we were able to
+      standardize our data to give us our index values.
+      The method we are choosing to run on our data is Factor Analysis.
+      This will allow us to be able to further comprise our data by grouping
+      the variables that we have to allow us to test our data so that we are
+      able to statistically prove which variables are either not significant
+      in explaining digital equity in eastern Washington or are statistically
+      significant in explaining digital equity.
+",
       "Storing the data locally for faster access",
       tags$pre('
 naturalization <- getCensusData("B05011")
@@ -162,7 +211,18 @@ write.csv(naturalization_urban, "app/data/naturalization_urban.csv")'),
       to allow for analysis of the data. Data provided from the FCC was only
       provided with block codes, so we joined a table with counties, tract
       numbers, and the block codes to group by county.",
+    
+    "Z Score",
+    tags$pre('
+zScore <- function(dataset){
+  standardized <- dataset %>% 
+  mutate(across(setdiff(names(select(., where(is.numeric))), "tract"), scale))
+return(standardized)
+}
+')
     ),
+
+
 
 
     # VARIABLES TAB
