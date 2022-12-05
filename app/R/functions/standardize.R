@@ -2,6 +2,6 @@ library(dplyr)
 
 zScore <- function(dataset){
   standardized <- dataset %>% 
-    transmute_if(is.numeric,~scale(.) %>% as.vector())
+    mutate(across(setdiff(names(select(., where(is.numeric))), 'tract'), scale))
   return(standardized)
 }

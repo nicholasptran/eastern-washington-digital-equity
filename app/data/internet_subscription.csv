@@ -1,4 +1,4 @@
-tract,county,internet_with_subscription,dialup,"broadband(cable, dsl, fiber_optics)",satellite,other,internet_without_subscription,no_internet,moe_internet_with_subscription,moe_dialup,moe_broadband,moe_satellite,moe_other,moe_no_subscription,moe_no_internet
+tract,county,internet_with_subscription,dialup,broadband,satellite,other,internet_without_subscription,no_internet,moe_internet_with_subscription,moe_dialup,moe_broadband,moe_satellite,moe_other,moe_no_subscription,moe_no_internet
 9501,adams,910,5,597,96,20,52,137,91,7,91,32,27,35,31
 9502,adams,487,2,223,121,34,9,116,94,3,54,46,20,7,40
 9503.01,adams,327,0,80,132,5,11,163,86,13,46,68,8,18,94
