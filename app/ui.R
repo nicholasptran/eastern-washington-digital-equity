@@ -228,15 +228,24 @@ return(standardized)
     # VARIABLES TAB
     tabItem(
       tabName = "variables",
-      h1("Variables")
+      h1("Variables"),
+      br(),
+      h3("A look into our data"),
+      dataTableOutput("combined_data_table")
     ),
 
     # ANALYSIS TAB
     tabItem(
       tabName = "analysis",
       h1("Analysis"),
+      h2("Ratioed Data"),
+      dataTableOutput("ratio_table"),
+      h2("Z-Scored Data"),
+      dataTableOutput("z_score_table"),
       br(),
-      h2("Summarized Statistics and Visualization")
+      h2("Summarized Statistics and Visualization"),
+      "Correlation Matrix",
+      plotOutput("corr_plot")
       #
     )
   )

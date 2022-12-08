@@ -8,5 +8,6 @@ helpers.installPackages(
   "psych",
   "ggplot2",
   "tidyr",
-  "stringr"
+  "stringr",
+  "corrplot"
 )
