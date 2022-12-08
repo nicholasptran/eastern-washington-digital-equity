@@ -1,5 +1,4 @@
 library(shiny)
-source("app/R/scripts/local.R")
 
 
 

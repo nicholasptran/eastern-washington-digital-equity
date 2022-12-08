@@ -2,7 +2,6 @@ source("R/functions/data_tables.R")
 source("R/modules/analysis_tab.R")
 source("R/ui/home_tab.R")
 source("R/modules/initialize_data.R")
-source("R/functions/standardize.R")
 
 library(shinydashboard)
 library(psych)
