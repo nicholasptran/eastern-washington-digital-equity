@@ -245,7 +245,9 @@ return(standardized)
       br(),
       h2("Summarized Statistics and Visualization"),
       "Correlation Matrix",
-      plotOutput("corr_plot")
+      plotOutput("corr_plot"),
+      "Descriptive Statistics",
+      dataTableOutput("desc_stat_table")
       #
     )
   )

@@ -14,4 +14,5 @@ server <- function(input, output, session) {
   output$z_score_table <- renderDataTable(z_score_data)
 
   output$corr_plot <- renderPlot(corrplot(cor, method = "shade"))
+  output$desc_stat_table <- renderDataTable(desc_stats)
 }

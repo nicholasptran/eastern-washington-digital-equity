@@ -19,6 +19,7 @@ z_score_data <- read.csv("data/z_score_data.csv")
 cor <- combined_data[3:28] %>% 
     cor()
 
-
+desc_stats <- describe(combined_data[3:28]) %>% 
+select(-vars, -n, -trimmed, -mad, -range, -skew, -kurtosis)
 
 
