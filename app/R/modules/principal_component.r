@@ -20,11 +20,15 @@ loadings
 View(loadings)
 nrow(loadings)
 
-pc1 <- as.matrix(standardized_data) %*% loadings[,1:24]
+pc1 <- as.matrix(standardized_data) %*% loadings[, 1:24]
 
-pc_data <- as.matrix(standardized_data) %*% loadings[,1:24] %>% as.matrix
+pc_data <- as.matrix(standardized_data) %*% loadings[, 1:24] %>% as.matrix
 
-pc_limit <- sqrt(1/ncol(standardized_data))
+pc_limit <- sqrt(1 / ncol(standardized_data))
 
 View(pc_data)
 view(pc1)
+
+num_pc <- eigen_data$values / sum(eigen_data$values)
+round(num_pc, 2)
+
