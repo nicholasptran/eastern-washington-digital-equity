@@ -10,8 +10,8 @@ cov_data <- cov(standardized_data)
 View(cov_data)
 
 eigen_data <- eigen(cov_data)
+eigen_data$vectors
 
-names(eigen_data)
 loadings <- eigen_data$vectors
 
 loadings <- -loadings
@@ -20,9 +20,9 @@ loadings
 View(loadings)
 nrow(loadings)
 
-pc1 <- as.matrix(standardized_data) %*% loadings[, 1:24]
+pc1 <- as.matrix(standardized_data) %*% loadings[, 1]
 
-pc_data <- as.matrix(standardized_data) %*% loadings[, 1:24] %>% as.matrix
+pc_data <- as.matrix(standardized_data) %*% loadings[, 1:5] %>% as.matrix
 
 pc_limit <- sqrt(1 / ncol(standardized_data))
 
@@ -31,4 +31,3 @@ view(pc1)
 
 num_pc <- eigen_data$values / sum(eigen_data$values)
 round(num_pc, 2)
-
