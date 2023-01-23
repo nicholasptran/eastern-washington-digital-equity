@@ -1,6 +1,6 @@
 library(tidyverse)
 
-
+data <- read.csv("app/data/combined_data.csv")
 # str(data)
 standardized_data <- read.csv("app/data/z_score_data.csv")
 standardized_data <- standardized_data[4:27]
@@ -15,14 +15,14 @@ eigen_data <- eigen(cov_data)
 loadings <- eigen_data$vectors
 
 loadings <- -loadings
-View(eigen_data$vectors[,1:5])
+View(eigen_data$vectors[,1:4])
 # loadings
 # View(loadings)
 # nrow(loadings)
 
 pc1 <- as.matrix(standardized_data) %*% loadings[, 1]
 
-pc_data <- as.matrix(standardized_data) %*% loadings[, 1:5] %>% as.matrix()
+pc_data <- as.matrix(standardized_data) %*% loadings[, 1:4] %>% as.matrix()
 
 pc_limit <- sqrt(1 / ncol(standardized_data))
 
@@ -31,3 +31,28 @@ pc_limit <- sqrt(1 / ncol(standardized_data))
 
 num_pc <- eigen_data$values / sum(eigen_data$values)
 round(num_pc, 2)
+
+
+# insert the pc data into a variable
+pc_data <- prcomp(data[3:27], scale = TRUE)
+
+# inverse the vectors
+pc_data$rotation <- -pc_data$rotation
+
+# inverse the pc data
+pc_data$x <- -pc_data$x
+
+data[1, 3:27]
+
+pc_data$rotation[, 1]
+
+# pc 1 -4 
+pc_data$x[,1:4]
+
+pc_data$sdev
+
+eigen_value  <-pc_data$sdev^2
+eigen_value
+
+pc_data
+
