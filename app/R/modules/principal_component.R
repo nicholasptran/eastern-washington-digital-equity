@@ -3,7 +3,7 @@ library(tidyverse)
 data <- read.csv("app/data/combined_data.csv")
 # str(data)
 standardized_data <- read.csv("app/data/z_score_data.csv")
-standardized_data <- standardized_data[4:27]
+standardized_data <- standardized_data[3:27]
 # names(standardized_data)
 cov_data <- cov(standardized_data)
 
@@ -51,8 +51,11 @@ pc_data$x[,1:4]
 
 pc_data$sdev
 
-eigen_value  <-pc_data$sdev^2
+# square the stdev to turn into eigen value
+eigen_value <- pc_data$sdev^2
 eigen_value
+
+pc_data$rotation[, 1:4]
 
 pc_data
 

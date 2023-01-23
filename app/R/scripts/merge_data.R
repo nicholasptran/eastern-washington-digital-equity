@@ -32,4 +32,4 @@ combined_data <- combined_data %>%
         median_age, everything()
     )
 
-write.csv(combined_data, "data/combined_data.csv", row.names= FALSE)
+# write.csv(combined_data, "data/combined_data.csv", row.names= FALSE)

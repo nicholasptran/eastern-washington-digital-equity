@@ -1,6 +1,6 @@
 setwd("app")
-source("R/scripts/merge_data.R")
-
+# source("R/scripts/merge_data.R")
+combined_data <- read.csv("app/data/combined_data.csv")
 
 # z score
 # function to z score
@@ -15,7 +15,7 @@ z_score_data <- zScore(combined_data) %>%
     rowwise() %>%
     mutate(index = sum(.[3:28], na.rm = TRUE))
 
-write.csv(z_score_data, "data/z_score_data.csv", row.names = FALSE)
+write.csv(z_score_data, "app/data/z_score_data.csv", row.names = FALSE)
 
 
 # ratio
@@ -32,4 +32,4 @@ ratio_data  <- ratio_data %>%
     rowwise() %>%
     mutate(index = sum(.[3:28], na.rm = TRUE))
 
-write.csv(ratio_data, "data/ratio_data.csv", row.names = FALSE)
+write.csv(ratio_data, "app/data/ratio_data.csv", row.names = FALSE)
