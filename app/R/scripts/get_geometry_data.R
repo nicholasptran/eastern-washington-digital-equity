@@ -4,7 +4,6 @@ library(tigris)
 library(mapview)
 library(sp)
 library(rgdal)
-library(raster)
 options(tigris_use_cache = TRUE)
 
 counties <- c(
@@ -39,4 +38,5 @@ getCensusData <- function(variable) {
 
 # pick a random census variable
 geometry_data <- getCensusData("B05011_001") %>%
-    select(tract, geometry)
+    dplyr::select(tract, geometry)
+
