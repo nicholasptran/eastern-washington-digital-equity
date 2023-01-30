@@ -57,7 +57,8 @@ getCensusData <- function(table) {
     year = 2020,
     state = "WA",
     survey = "acs5",
-    cache_table = FALSE
+    cache_table = FALSE,
+    county = counties
   ) %>%
     separate(NAME, c("tract", "county", "state"), sep = ",") %>%
     mutate(
@@ -70,7 +71,6 @@ getCensusData <- function(table) {
     rename_all(recode, variable = "variable_key") %>%
     merge(variable_data, by = "variable_key") %>%
     select(-state, -GEOID, -variable_key, -dataset) %>%
-    filter(county %in% counties) %>%
     pivot_wider(
       names_from = variable,
       values_from = c(estimate, moe)

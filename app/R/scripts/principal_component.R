@@ -25,7 +25,7 @@ View(eigen_data$vectors[, 1:4])
 # nrow(loadings)
 
 pc1 <- as.matrix(standardized_data) %*% loadings[, 1]
-
+pc1
 pc_data <- as.matrix(standardized_data) %*% loadings[, 1:4] %>% as.matrix()
 
 pc_limit <- sqrt(1 / ncol(standardized_data))
