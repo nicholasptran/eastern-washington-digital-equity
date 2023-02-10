@@ -12,7 +12,7 @@ library(dplyr)
 
 index <- read.csv("app/data/pc_index.csv")
 data <- read.csv("app/data/combined_data.csv")
-data <- data[1:27] %>% dplyr::select(-with_other, -only_tablet)
+# data <- data[1:27] %>% dplyr::select(-with_other, -only_tablet)
 mapviewOptions(viewer.suppress = FALSE)
 
 # merge df
