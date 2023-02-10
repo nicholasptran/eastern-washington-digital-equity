@@ -10,6 +10,8 @@ library(sf)
 library(dplyr)
 
 
+
+
 index <- read.csv("app/data/pc_index.csv")
 data <- read.csv("app/data/combined_data.csv")
 # data <- data[1:27] %>% dplyr::select(-with_other, -only_tablet)
@@ -34,10 +36,15 @@ county_map <- county_map %>%
     filter(NAME %in% counties) %>%
     dplyr::select(NAME, geometry)
 
+
+save <- mapview(index_plot, zcol = 'index')
 # mapview(county_map, burst = TRUE, zcol = 'NAME') +
 mapview(index_plot, zcol = 'index')
 
 
+html_f1 <- tempfile(fileext = ".html")
+mapshot(save, url = paste0(getwd(), "/map.html"))
+browseURL(html_f1)
 # mapview(index_plot,
 #     zcol = c('tract', 'county'),
 #     # col.regions = brewer.pal(9, "Paired"),
