@@ -20,7 +20,7 @@ We collected tract-level data for these counties:
 
 ### Census Data
 Load your libraries and Census API key:
-```
+```R
 library(tidycensus)
 library(tidyverse)
 library(tigris)
@@ -33,7 +33,7 @@ census_api_key(Sys.getenv("CENSUS_API_KEY"))
 
 
 Load the acs5 and acs5 subject variables into an object:
-```
+```R
 variable_data <- load_variables(2021, "acs5", cache = FALSE) %>%
   rename_all(recode,
     name = "variable_key", concept = "dataset",
@@ -68,7 +68,7 @@ variable_data <- rbind(variable_data, variable_data2)
 
 
 Select your variables and filter them:
-```
+```R
 variables <- c(
     "B05011_002", "B05011_003", "B05012_002", "B05012_003", "B08101_049", "B28001_003", "B28001_004",
     "B28001_005", "B28001_006", "B28001_007", "B28003_002", "B28003_006", "B28011_002", "B28011_003", "B28011_004",
@@ -81,7 +81,7 @@ variable_data <- variable_data %>%
 
 
 Define your counties, create a function, and assign the data to objects:
-```
+```R
 counties <- c(
   "adams", "asotin", "ferry", "garfield", "lincoln",
   "pend oreille", "spokane", "stevens", "whitman"
@@ -126,7 +126,7 @@ census_data <- naturalization %>%
 
 
 Inner join the census_data with variable_data while keeping the GEOID:
-```
+```R
 census_data <- census_data %>% inner_join(variable_data, by = c("variable" = "variable_key"))
 
 census_data <- census_data %>% 
@@ -135,7 +135,7 @@ census_data <- census_data %>%
 
 
 Get the GEOID data per tract:
-```
+```R
 tract_data <- tracts(state = "washington", county = counties, progress_bar = FALSE, cb = FALSE)
 
 tract_data <- tract_data %>% 
@@ -144,19 +144,19 @@ tract_data <- tract_data %>%
 
 
 Inner join census_data and tract_data by GEOID:
-```
+```R
 census_data <- inner_join(census_data, tract_data)
 ```
 
 
 Drop the geometry (we'll use it later to plot the map once we finish our final dataset):
-```
+```R
 census_data <- st_drop_geometry(census_data)
 ```
 
 
 Change the data from tall to wide:
-```
+```R
 census_data <- census_data %>% 
     pivot_wider(names_from = variable, values_from = estimate) %>% 
     select(-geometry)
@@ -164,7 +164,7 @@ census_data <- census_data %>%
 
 
 Rename the columns:
-```
+```R
 census_data <- census_data %>% 
     rename(
         not_citizen = estimate_total_not_a_u.s._citizen,
@@ -194,14 +194,14 @@ census_data <- census_data %>%
 
 
 Replace the null value in the median_income column with the mean value:
-```
+```R
 census_data$median_income[is.na(census_data$median_income)] <- mean(census_data$median_income, na.rm=TRUE)
 ```
 
 
 ### Ookla Speed Data
 Load the libraries:
-```
+```R
 library(tidyverse)
 library(ooklaOpenDataR)
 library(tigris)
@@ -210,7 +210,7 @@ library(sf)
 
 
 Define the counties and collect the tract data:
-```
+```R
 counties <- c('Asotin', 'Lincoln', 'Ferry', 'Garfield', 'Pend Oreille', 'Stevens', 'Whitman', 'Spokane',
     'Adams')
 
@@ -221,24 +221,24 @@ wa_tracts <- tigris::tracts(state = "Washington", county = counties) %>%
 
 
 Get the speed test data from Ookla:
-```
+```R
 tiles <- ooklaOpenDataR::get_performance_tiles('fixed', 2022, 4, sf = TRUE)
 ```
 
 Filter the tiles with tract data (similar to an inner join):
-```
+```R
 tiles <- ooklaOpenDataR:: filter_by_quadkey(tiles, bbox = st_bbox(wa_tracts))
 ```
 
 
 Join the datasets by special feature:
-```
+```R
 data <- sf_join(wa_tracts, tiles, left = FALSE)
 ```
 
 
 Clean it up a bit:
-```
+```R
 test <- test %>% 
     group_by(geoid, tract) %>% 
     summarise(
@@ -252,7 +252,7 @@ test <- test %>%
 
 ### FCC Provider Data
 Load the libraries and the data (you can use the API if you want):
-```
+```R
 library(tidyverse)
 library(tigris)
 library(sf)
@@ -264,7 +264,7 @@ fcc_data <- read.csv('../data/fcc.csv')
 
 
 Define the counties, get the tract data, and block data (the FCC data are by block-level):
-```
+```R
 counties <- c('Asotin', 'Lincoln', 'Ferry', 'Garfield', 'Pend Oreille', 'Stevens', 'Whitman', 'Spokane',
     'Adams')
 
@@ -274,7 +274,7 @@ block <- blocks(state = "washington", county = counties, progress_bar = FALSE)
 
 
 Special features join the datasets:
-```
+```R
 tract <- st_join(tract, block, left = FALSE)
 ```
 
