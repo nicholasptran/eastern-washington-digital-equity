@@ -41,10 +41,6 @@ save <- mapview(index_plot, zcol = 'index')
 # mapview(county_map, burst = TRUE, zcol = 'NAME') +
 mapview(index_plot, zcol = 'index')
 
-
-html_f1 <- tempfile(fileext = ".html")
-mapshot(save, url = paste0(getwd(), "/map.html"))
-browseURL(html_f1)
 # mapview(index_plot,
 #     zcol = c('tract', 'county'),
 #     # col.regions = brewer.pal(9, "Paired"),
