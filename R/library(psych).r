@@ -4,7 +4,7 @@ library(tidyverse)
 data <- read.csv("app/data/pc_index.csv")
 data <- data %>% select(index)
 
-cortest.bartlett(cov(data), 178)    
+cortest.bartlett(cov(data), 178)
 
 dist_data <- dist(data, method = 'euclidean')
 

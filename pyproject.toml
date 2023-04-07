@@ -16,6 +16,9 @@ ipykernel = "^6.22.0"
 black = "^23.3.0"
 dash-bootstrap-components = "^1.4.1"
 dash-bootstrap-templates = "^1.0.8"
+census = "^0.8.19"
+us = "^2.0.2"
+cenpy = "^1.0.1"
 
 
 [build-system]
