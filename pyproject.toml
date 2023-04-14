@@ -19,6 +19,8 @@ dash-bootstrap-templates = "^1.0.8"
 census = "^0.8.19"
 us = "^2.0.2"
 cenpy = "^1.0.1"
+sklearn = "^0.0.post1"
+scikit-learn = "^1.2.2"
 
 
 [build-system]
