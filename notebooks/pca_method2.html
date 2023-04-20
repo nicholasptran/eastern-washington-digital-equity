@@ -1,26 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8" />
-<meta http-equiv="X-UA-Compatible" content="chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<title>pca_method2</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 
 
-<title>pca_method2 slides</title><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 
-<!-- General and theme style sheets -->
-<link rel="stylesheet" href="https://unpkg.com/reveal.js@4.0.2/dist/reveal.css">
-
-<!-- If the query includes 'print-pdf', include the PDF print sheet -->
-<script>
-if( window.location.search.match( /print-pdf/gi ) ) {
-        var link = document.createElement( 'link' );
-        link.rel = 'stylesheet';
-        link.type = 'text/css';
-        document.getElementsByTagName( 'head' )[0].appendChild( link );
-}
-</script>
 
 <style type="text/css">
     pre { line-height: 125%; }
@@ -14982,145 +14968,103 @@ all of MD as it is not optimized for dense, information rich UIs.
 </style>
 
 <style type="text/css">
+/* Force rendering true colors when outputing to pdf */
+* {
+  -webkit-print-color-adjust: exact;
+}
+
+/* Misc */
 a.anchor-link {
-   display: none;
-}
-.highlight  {
-    margin: 0.4em;
-}
-.jp-Notebook {
-    padding: 0;
-}
-:root {
-    --jp-ui-font-size1: 20px;       /* instead of 14px */
-    --jp-content-font-size1: 20px;  /* instead of 14px */
-    --jp-code-font-size: 19px;      /* instead of 13px */
-    --jp-cell-prompt-width: 110px;  /* instead of 64px */
-}
-@media print {
-  body {
-    margin: 0;
-  }
-}
-</style>
-
-<style type="text/css">
-/* Overrides of notebook CSS for static HTML export */
-.reveal {
-  font-size: 160%;
-}
-.reveal table {
-  font-size: var(--jp-ui-font-size1);
-}
-.reveal pre {
-  width: inherit;
-  padding: 0.4em;
-  margin: 0px;
-  font-family: monospace, sans-serif;
-  font-size: 80%;
-  box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
-}
-.reveal pre code {
-  padding: 0px;
-}
-.reveal section img {
-  border: 0px solid black;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0);
-}
-.reveal .slides {
-  text-align: left;
-}
-.reveal.fade {
-  opacity: 1;
-}
-.reveal .progress {
-  position: static;
+  display: none;
 }
 
-div.jp-InputArea-editor {
-  padding: 0.06em;
+/* Input area styling */
+.jp-InputArea {
+  overflow: hidden;
 }
 
-div.code_cell {
-  background-color: transparent;
+.jp-InputArea-editor {
+  overflow: hidden;
 }
 
-div.output_area pre {
-  font-family: monospace, sans-serif;
-  font-size: 80%;
-}
-
-div.jp-OutputPrompt {
-  /* 5px right shift to account for margin in parent container */
-  margin: 5px 5px 0 0;
-}
-
-.reveal div.highlight {
+.CodeMirror.cm-s-jupyter .highlight pre {
+/* weird, but --jp-code-padding defined to be 5px but 4px horizontal padding is hardcoded for pre.CodeMirror-line */
+  padding: var(--jp-code-padding) 4px;
   margin: 0;
+
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;
+
 }
 
-.reveal div.highlight > pre {
-  margin: 0;
+.jp-OutputArea-output pre {
+  line-height: inherit;
+  font-family: inherit;
+}
+
+.jp-RenderedText pre {
+  color: var(--jp-content-font-color1);
+  font-size: var(--jp-code-font-size);
+}
+
+/* Using table instead of flexbox so that we can use break-inside property */
+/* CSS rules under this comment should not be required anymore after we move to the JupyterLab 4.0 CSS */
+
+
+.jp-CodeCell.jp-mod-outputsScrolled .jp-OutputArea-prompt {
+  min-width: calc(
+    var(--jp-cell-prompt-width) - var(--jp-private-cell-scrolling-output-offset)
+  );
+}
+
+.jp-OutputArea-child {
+  display: table;
   width: 100%;
-  font-size: var(--jp-code-font-size);
 }
 
-.reveal div.jp-OutputArea-output > pre {
-  margin: 0;
-  width: 90%;
-  font-size: var(--jp-code-font-size);
-  box-shadow: none;
+.jp-OutputPrompt {
+  display: table-cell;
+  vertical-align: top;
+  min-width: var(--jp-cell-prompt-width);
 }
 
-/* Reveal navigation controls */
-
-.reveal .controls .navigate-left,
-.reveal .controls .navigate-left.enabled {
-  border-right-color: #727272;
-}
-.reveal .controls .navigate-left.enabled:hover,
-.reveal .controls .navigate-left.enabled.enabled:hover {
-  border-right-color: #dfdfdf;
-}
-.reveal .controls .navigate-right,
-.reveal .controls .navigate-right.enabled {
-  border-left-color: #727272;
-}
-.reveal .controls .navigate-right.enabled:hover,
-.reveal .controls .navigate-right.enabled.enabled:hover {
-  border-left-color: #dfdfdf;
-}
-.reveal .controls .navigate-up,
-.reveal .controls .navigate-up.enabled {
-  border-bottom-color: #727272;
-}
-.reveal .controls .navigate-up.enabled:hover,
-.reveal .controls .navigate-up.enabled.enabled:hover {
-  border-bottom-color: #dfdfdf;
-}
-.reveal .controls .navigate-down,
-.reveal .controls .navigate-down.enabled {
-  border-top-color: #727272;
-}
-.reveal .controls .navigate-down.enabled:hover,
-.reveal .controls .navigate-down.enabled.enabled:hover {
-  border-top-color: #dfdfdf;
-}
-.reveal .progress span {
-  background: #727272;
+body[data-format='mobile'] .jp-OutputPrompt {
+  display: table-row;
 }
 
-/* Scrollbars */
+.jp-OutputArea-output {
+  display: table-cell;
+  width: 100%;
+}
 
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
+  display: table-row;
 }
-::-webkit-scrollbar * {
-  background: transparent;
+
+.jp-OutputArea-output.jp-OutputArea-executeResult {
+  width: 100%;
 }
-::-webkit-scrollbar-thumb {
-  background: #727272 !important;
+
+/* Hiding the collapser by default */
+.jp-Collapser {
+  display: none;
+}
+
+@page {
+    margin: 0.5in; /* Margin for each printed piece of paper */
+}
+
+@media print {
+  .jp-Cell-inputWrapper,
+  .jp-Cell-outputWrapper {
+    display: block;
+  }
+
+  .jp-OutputArea-child {
+    break-inside: avoid-page;
+  }
 }
 </style>
 
@@ -15157,22 +15101,28 @@ div.jp-OutputPrompt {
     }
     init_mathjax();
     </script>
-    <!-- End of mathjax configuration --><!-- Reveal Theme -->
-<link rel="stylesheet" href="https://unpkg.com/reveal.js@4.0.2/dist/theme/simple.css" id="theme">
-
-</head>
-
+    <!-- End of mathjax configuration --></head>
 <body class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
 
-<div class="reveal">
-<div class="slides"><section ><section >
 <div  class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h1 id="Eastern-Washington-Digital-Equity">Eastern Washington Digital Equity<a class="anchor-link" href="#Eastern-Washington-Digital-Equity">&#182;</a></h1>
+<h1 id="PCA---Method-2">PCA - Method 2<a class="anchor-link" href="#PCA---Method-2">&#182;</a></h1>
+</div>
+</div>
+</div>
+</div>
+<div  class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>jupyter nbconvert notebooks/pca_method2.ipynb --to slides --post serve --SlidesExporter.reveal_scroll=True</p>
+
 </div>
 </div>
 </div>
@@ -15187,62 +15137,7 @@ div.jp-OutputPrompt {
 </div>
 </div>
 </div>
-</div></section></section><section ><section >
-<div  class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h1 id="PCA---Method-1">PCA - Method 1<a class="anchor-link" href="#PCA---Method-1">&#182;</a></h1>
-</div>
-</div>
-</div>
-</div><div class="fragment" >
-<div  class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Use-PC1-As-Index">Use PC1 As Index<a class="anchor-link" href="#Use-PC1-As-Index">&#182;</a></h2>
-</div>
-</div>
-</div>
-</div></div><div class="fragment" >
-<div  class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Use-Correlation-P-Values-for-Feature-Selection">Use Correlation P Values for Feature Selection<a class="anchor-link" href="#Use-Correlation-P-Values-for-Feature-Selection">&#182;</a></h2>
-</div>
-</div>
-</div>
-</div></div><div class="fragment" >
-<div  class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Create-New-Dataset-w/-Removed-Variables">Create New Dataset w/ Removed Variables<a class="anchor-link" href="#Create-New-Dataset-w/-Removed-Variables">&#182;</a></h2>
-</div>
-</div>
-</div>
-</div></div><div class="fragment" >
-<div  class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Use-Stepwise-Regression-for-Final-Coefficients">Use Stepwise Regression for Final Coefficients<a class="anchor-link" href="#Use-Stepwise-Regression-for-Final-Coefficients">&#182;</a></h2>
-</div>
-</div>
-</div>
-</div></div></section></section><section ><section >
 <div  class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
@@ -15253,7 +15148,7 @@ div.jp-OutputPrompt {
 </div>
 </div>
 </div>
-</div></section><section >
+</div>
 <div  class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
@@ -15282,7 +15177,7 @@ div.jp-OutputPrompt {
 </div>
 </div>
 
-</div></section><section >
+</div>
 <div  class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
@@ -15309,7 +15204,7 @@ div.jp-OutputPrompt {
 </div>
 </div>
 
-</div><div class="fragment" ><div  class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+</div><div  class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -15362,7 +15257,7 @@ div.jp-OutputPrompt {
 
 </div>
 
-</div></div></section><section >
+</div>
 <div  class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
@@ -15389,7 +15284,7 @@ div.jp-OutputPrompt {
 </div>
 </div>
 
-</div><div class="fragment" ><div  class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+</div><div  class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -15442,7 +15337,7 @@ div.jp-OutputPrompt {
 
 </div>
 
-</div></div></section><section >
+</div>
 <div  class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
@@ -15469,7 +15364,7 @@ div.jp-OutputPrompt {
 </div>
 </div>
 
-</div><div class="fragment" ><div  class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+</div><div  class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -15521,7 +15416,7 @@ div.jp-OutputPrompt {
 
 </div>
 
-</div></div></section><section >
+</div>
 <div  class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
@@ -15532,7 +15427,7 @@ div.jp-OutputPrompt {
 </div>
 </div>
 </div>
-</div></section><section >
+</div>
 <div  class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
@@ -15600,7 +15495,7 @@ div.jp-OutputPrompt {
 
 </div>
 
-</div></section><section >
+</div>
 <div  class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
@@ -15668,7 +15563,7 @@ div.jp-OutputPrompt {
 
 </div>
 
-</div></section></section><section ><section >
+</div>
 <div  class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
@@ -15679,7 +15574,7 @@ div.jp-OutputPrompt {
 </div>
 </div>
 </div>
-</div><div class="fragment" >
+</div>
 <div  class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
@@ -15691,7 +15586,7 @@ div.jp-OutputPrompt {
 </div>
 </div>
 </div>
-</div></div><div class="fragment" >
+</div>
 <div  class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
@@ -15703,7 +15598,7 @@ div.jp-OutputPrompt {
 </div>
 </div>
 </div>
-</div></div><div class="fragment" >
+</div>
 <div  class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
@@ -15715,7 +15610,7 @@ div.jp-OutputPrompt {
 </div>
 </div>
 </div>
-</div></div></section><section >
+</div>
 <div  class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
@@ -15745,7 +15640,7 @@ div.jp-OutputPrompt {
 </div>
 </div>
 
-</div></section><section >
+</div>
 <div  class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
@@ -15818,7 +15713,7 @@ div.jp-OutputPrompt {
 
 </div>
 
-</div></section><section >
+</div>
 <div  class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
@@ -15891,7 +15786,7 @@ div.jp-OutputPrompt {
 
 </div>
 
-</div></section><section >
+</div>
 <div  class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
@@ -15918,7 +15813,7 @@ div.jp-OutputPrompt {
 </div>
 </div>
 
-</div><div class="fragment" ><div  class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+</div><div  class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -15975,7 +15870,7 @@ div.jp-OutputPrompt {
 
 </div>
 
-</div></div></section><section >
+</div>
 <div  class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
@@ -16002,7 +15897,7 @@ div.jp-OutputPrompt {
 </div>
 </div>
 
-</div><div class="fragment" ><div  class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+</div><div  class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -16053,7 +15948,7 @@ div.jp-OutputPrompt {
 
 </div>
 
-</div></div></section><section >
+</div>
 <div  class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
@@ -16080,7 +15975,7 @@ div.jp-OutputPrompt {
 </div>
 </div>
 
-</div><div class="fragment" ><div  class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+</div><div  class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -16132,7 +16027,7 @@ div.jp-OutputPrompt {
 
 </div>
 
-</div></div></section><section >
+</div>
 <div  class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
@@ -16245,7 +16140,7 @@ div.jp-OutputPrompt {
 
 </div>
 
-</div></section><section >
+</div>
 <div  class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
@@ -16256,7 +16151,7 @@ div.jp-OutputPrompt {
 </div>
 </div>
 </div>
-</div></section><section >
+</div>
 <div  class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
@@ -16329,7 +16224,7 @@ div.jp-OutputPrompt {
 
 </div>
 
-</div></section><section >
+</div>
 <div  class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
@@ -16389,7 +16284,7 @@ div.jp-OutputPrompt {
 
 </div>
 
-</div></section><section >
+</div>
 <div  class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
@@ -16457,7 +16352,7 @@ div.jp-OutputPrompt {
 
 </div>
 
-</div></section><section >
+</div>
 <div  class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
@@ -16468,7 +16363,7 @@ div.jp-OutputPrompt {
 </div>
 </div>
 </div>
-</div><div class="fragment" ><div  class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+</div><div  class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -16522,7 +16417,7 @@ div.jp-OutputPrompt {
 
 </div>
 
-</div></div></section><section >
+</div>
 <div  class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
@@ -16533,7 +16428,7 @@ div.jp-OutputPrompt {
 </div>
 </div>
 </div>
-</div><div class="fragment" ><div  class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+</div><div  class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -16597,7 +16492,7 @@ div.jp-OutputPrompt {
 
 </div>
 
-</div></div></section><section >
+</div>
 <div  class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
@@ -16608,7 +16503,7 @@ div.jp-OutputPrompt {
 </div>
 </div>
 </div>
-</div><div class="fragment" ><div  class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+</div><div  class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -16666,15 +16561,16 @@ div.jp-OutputPrompt {
 
 </div>
 
-</div><div  class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+</div><div  class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[107]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[86]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-r"><pre><span></span><span class="nf">rcorr</span><span class="p">(</span><span class="nf">as.matrix</span><span class="p">(</span><span class="n">index_data</span><span class="p">),</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;pearson&quot;</span><span class="p">)</span><span class="o">$</span><span class="n">r</span>
+<div class=" highlight hl-r"><pre><span></span><span class="n">data2</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> </span><span class="nf">select</span><span class="p">(</span><span class="o">-</span><span class="n">median_income</span><span class="p">)</span>
+<span class="n">scaled_data2</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">scale</span><span class="p">(</span><span class="n">data2</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -16682,66 +16578,7 @@ div.jp-OutputPrompt {
 </div>
 </div>
 
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
 </div>
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child">
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-
-<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output " data-mime-type="text/html">
-<table class="dataframe">
-<caption>A matrix: 12 × 12 of type dbl</caption>
-<thead>
-	<tr><th></th><th scope=col>has_computer</th><th scope=col>with_internet</th><th scope=col>total_population</th><th scope=col>work_from_home</th><th scope=col>X65_and_older</th><th scope=col>median_income</th><th scope=col>number_providers</th><th scope=col>mean_lowest_cost</th><th scope=col>mean_d_mbps</th><th scope=col>mean_u_mbps</th><th scope=col>mean_lat_ms</th><th scope=col>index</th></tr>
-</thead>
-<tbody>
-	<tr><th scope=row>has_computer</th><td> 1.0000000</td><td> 0.9894358</td><td> 0.88769674</td><td> 0.429532198</td><td> 0.63073622</td><td> 0.16291986</td><td>-0.11586967</td><td> 0.10884185</td><td> 0.30554032</td><td> 0.19648189</td><td>-0.201306736</td><td> 0.9434446</td></tr>
-	<tr><th scope=row>with_internet</th><td> 0.9894358</td><td> 1.0000000</td><td> 0.88409177</td><td> 0.444207496</td><td> 0.62529208</td><td> 0.16040888</td><td>-0.12882664</td><td> 0.13640579</td><td> 0.34507339</td><td> 0.19906151</td><td>-0.236716631</td><td> 0.9551007</td></tr>
-	<tr><th scope=row>total_population</th><td> 0.8876967</td><td> 0.8840918</td><td> 1.00000000</td><td> 0.465567411</td><td> 0.55262306</td><td> 0.02849018</td><td>-0.12177616</td><td> 0.07103486</td><td> 0.26876416</td><td> 0.16742756</td><td>-0.141781841</td><td> 0.8889333</td></tr>
-	<tr><th scope=row>work_from_home</th><td> 0.4295322</td><td> 0.4442075</td><td> 0.46556741</td><td> 1.000000000</td><td> 0.39074417</td><td> 0.03663670</td><td> 0.02939906</td><td>-0.00620995</td><td> 0.03144231</td><td>-0.05867872</td><td> 0.008545821</td><td> 0.5140701</td></tr>
-	<tr><th scope=row>X65_and_older</th><td> 0.6307362</td><td> 0.6252921</td><td> 0.55262306</td><td> 0.390744170</td><td> 1.00000000</td><td> 0.14854040</td><td> 0.05292992</td><td> 0.05050125</td><td>-0.04232679</td><td>-0.16920740</td><td> 0.102017655</td><td> 0.6226558</td></tr>
-	<tr><th scope=row>median_income</th><td> 0.1629199</td><td> 0.1604089</td><td> 0.02849018</td><td> 0.036636701</td><td> 0.14854040</td><td> 1.00000000</td><td> 0.02199604</td><td>-0.05377681</td><td>-0.04773346</td><td>-0.01815921</td><td> 0.058520706</td><td> 0.1298200</td></tr>
-	<tr><th scope=row>number_providers</th><td>-0.1158697</td><td>-0.1288266</td><td>-0.12177616</td><td> 0.029399058</td><td> 0.05292992</td><td> 0.02199604</td><td> 1.00000000</td><td>-0.32945829</td><td>-0.48020798</td><td>-0.01627282</td><td> 0.446802457</td><td>-0.2739159</td></tr>
-	<tr><th scope=row>mean_lowest_cost</th><td> 0.1088418</td><td> 0.1364058</td><td> 0.07103486</td><td>-0.006209950</td><td> 0.05050125</td><td>-0.05377681</td><td>-0.32945829</td><td> 1.00000000</td><td> 0.19664282</td><td> 0.08436356</td><td>-0.181091388</td><td> 0.2099062</td></tr>
-	<tr><th scope=row>mean_d_mbps</th><td> 0.3055403</td><td> 0.3450734</td><td> 0.26876416</td><td> 0.031442306</td><td>-0.04232679</td><td>-0.04773346</td><td>-0.48020798</td><td> 0.19664282</td><td> 1.00000000</td><td> 0.40439966</td><td>-0.831561029</td><td> 0.5076002</td></tr>
-	<tr><th scope=row>mean_u_mbps</th><td> 0.1964819</td><td> 0.1990615</td><td> 0.16742756</td><td>-0.058678724</td><td>-0.16920740</td><td>-0.01815921</td><td>-0.01627282</td><td> 0.08436356</td><td> 0.40439966</td><td> 1.00000000</td><td>-0.421146282</td><td> 0.2726892</td></tr>
-	<tr><th scope=row>mean_lat_ms</th><td>-0.2013067</td><td>-0.2367166</td><td>-0.14178184</td><td> 0.008545821</td><td> 0.10201766</td><td> 0.05852071</td><td> 0.44680246</td><td>-0.18109139</td><td>-0.83156103</td><td>-0.42114628</td><td> 1.000000000</td><td>-0.4046587</td></tr>
-	<tr><th scope=row>index</th><td> 0.9434446</td><td> 0.9551007</td><td> 0.88893325</td><td> 0.514070081</td><td> 0.62265584</td><td> 0.12981998</td><td>-0.27391590</td><td> 0.20990615</td><td> 0.50760018</td><td> 0.27268921</td><td>-0.404658672</td><td> 1.0000000</td></tr>
-</tbody>
-</table>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div></div></section><section ><div  class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[160]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-r"><pre><span></span><span class="n">data1.2</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> </span><span class="nf">select</span><span class="p">(</span><span class="o">-</span><span class="n">median_income</span><span class="p">)</span>
-<span class="n">scaled_data1.2</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">scale</span><span class="p">(</span><span class="n">data1.2</span><span class="p">)</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div></section><section >
 <div  class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
@@ -16764,15 +16601,15 @@ div.jp-OutputPrompt {
 </div>
 </div>
 </div>
-</div><div class="fragment" ><div  class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+</div><div  class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[161]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[91]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-r"><pre><span></span><span class="nf">KMO</span><span class="p">(</span><span class="n">data1.2</span><span class="p">)</span>
+<div class=" highlight hl-r"><pre><span></span><span class="nf">KMO</span><span class="p">(</span><span class="n">data2</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -16795,7 +16632,7 @@ div.jp-OutputPrompt {
 
 <div class="jp-RenderedText jp-OutputArea-output " data-mime-type="text/plain">
 <pre>Kaiser-Meyer-Olkin factor adequacy
-Call: KMO(r = data1.2)
+Call: KMO(r = data2)
 Overall MSA =  0.75
 MSA for each item = 
     has_computer    with_internet total_population   work_from_home 
@@ -16812,53 +16649,7 @@ MSA for each item =
 
 </div>
 
-</div></div><div class="fragment" ><div  class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[162]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-r"><pre><span></span><span class="nf">cortest.bartlett</span><span class="p">(</span><span class="nf">cov</span><span class="p">(</span><span class="n">scaled_data1.2</span><span class="p">),</span><span class="w"> </span><span class="m">183</span><span class="p">)</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child">
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-
-<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output " data-mime-type="text/html">
-<dl>
-	<dt>$chisq</dt>
-		<dd>1533.55750958988</dd>
-	<dt>$p.value</dt>
-		<dd>0.000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000444499390298393</dd>
-	<dt>$df</dt>
-		<dd>45</dd>
-</dl>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div></div></section><section >
 <div  class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
@@ -16874,18 +16665,18 @@ MSA for each item =
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[163]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[92]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-r"><pre><span></span><span class="n">pca_data1.2</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">prcomp</span><span class="p">(</span><span class="n">data1.2</span><span class="p">,</span><span class="w"> </span><span class="n">scale</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">,</span><span class="w"> </span><span class="n">center</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span>
-<span class="n">eigenvectors1.2</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="o">-</span><span class="n">pca_data1.2</span><span class="o">$</span><span class="n">rotation</span>
-<span class="n">eigenvalues1.2</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">pca_data1.2</span><span class="o">$</span><span class="n">sdev</span><span class="o">^</span><span class="m">2</span>
+<div class=" highlight hl-r"><pre><span></span><span class="n">pca_data2</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">prcomp</span><span class="p">(</span><span class="n">data2</span><span class="p">,</span><span class="w"> </span><span class="n">scale</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">,</span><span class="w"> </span><span class="n">center</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span>
+<span class="n">eigenvectors2</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="o">-</span><span class="n">pca_data2</span><span class="o">$</span><span class="n">rotation</span>
+<span class="n">eigenvalues2</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">pca_data2</span><span class="o">$</span><span class="n">sdev</span><span class="o">^</span><span class="m">2</span>
 
-<span class="n">index1.2</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">as.data.frame</span><span class="p">(</span><span class="o">-</span><span class="n">pca_data1.2</span><span class="o">$</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span>
+<span class="n">index2</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">as.data.frame</span><span class="p">(</span><span class="o">-</span><span class="n">pca_data2</span><span class="o">$</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span>
 <span class="w">    </span><span class="nf">select</span><span class="p">(</span><span class="n">PC1</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span>
 <span class="w">    </span><span class="nf">rename</span><span class="p">(</span><span class="n">index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PC1</span><span class="p">)</span>
 
-<span class="n">index_data1.2</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">bind_cols</span><span class="p">(</span><span class="n">scaled_data1.2</span><span class="p">,</span><span class="w"> </span><span class="n">index1.2</span><span class="p">)</span>
+<span class="n">index_data2</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">bind_cols</span><span class="p">(</span><span class="n">scaled_data2</span><span class="p">,</span><span class="w"> </span><span class="n">index2</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -16893,15 +16684,15 @@ MSA for each item =
 </div>
 </div>
 
-</div><div class="fragment" ><div  class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+</div><div  class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[164]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[93]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-r"><pre><span></span><span class="nf">head</span><span class="p">(</span><span class="n">index_data1.2</span><span class="p">)</span>
+<div class=" highlight hl-r"><pre><span></span><span class="nf">head</span><span class="p">(</span><span class="n">index_data2</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -16946,7 +16737,7 @@ MSA for each item =
 
 </div>
 
-</div></div></section></section><section ><section >
+</div>
 <div  class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
@@ -16957,7 +16748,7 @@ MSA for each item =
 </div>
 </div>
 </div>
-</div></section><section >
+</div>
 <div  class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
@@ -16973,20 +16764,15 @@ MSA for each item =
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[165]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-r"><pre><span></span><span class="c1"># https://www.statology.org/stepwise-regression-r/</span>
-<span class="n">intercept</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">lm</span><span class="p">(</span><span class="n">index</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">index_data1.2</span><span class="p">)</span>
-<span class="n">lm_data</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">lm</span><span class="p">(</span><span class="n">index</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">.</span><span class="p">,</span><span class="w"> </span><span class="n">index_data1.2</span><span class="p">)</span>
+<div class=" highlight hl-r"><pre><span></span><span class="n">intercept</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">lm</span><span class="p">(</span><span class="n">index</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">index_data2</span><span class="p">)</span>
+<span class="n">lm_data</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">lm</span><span class="p">(</span><span class="n">index</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">.</span><span class="p">,</span><span class="w"> </span><span class="n">index_data2</span><span class="p">)</span>
 
 <span class="n">forward</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">step</span><span class="p">(</span><span class="n">intercept</span><span class="p">,</span><span class="w"> </span><span class="n">direction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;forward&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">scope</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">formula</span><span class="p">(</span><span class="n">lm_data</span><span class="p">),</span><span class="w"> </span><span class="n">trace</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span><span class="p">)</span>
 <span class="n">backward</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">step</span><span class="p">(</span><span class="n">lm_data</span><span class="p">,</span><span class="w"> </span><span class="n">direction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;backward&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">scope</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">formula</span><span class="p">(</span><span class="n">lm_data</span><span class="p">),</span><span class="w"> </span><span class="n">trace</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span><span class="p">)</span>
 <span class="n">both</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">step</span><span class="p">(</span><span class="n">intercept</span><span class="p">,</span><span class="w"> </span><span class="n">direction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;both&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">scope</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">formula</span><span class="p">(</span><span class="n">lm_data</span><span class="p">),</span><span class="w"> </span><span class="n">trace</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span><span class="p">)</span>
-
-<span class="n">forward_bic</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">step</span><span class="p">(</span><span class="n">intercept</span><span class="p">,</span><span class="w"> </span><span class="n">direction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;forward&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">scope</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">formula</span><span class="p">(</span><span class="n">lm_data</span><span class="p">),</span><span class="w"> </span><span class="n">trace</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">log</span><span class="p">(</span><span class="nf">nrow</span><span class="p">(</span><span class="n">index_data2</span><span class="p">)))</span>
-<span class="n">backward_bic</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">step</span><span class="p">(</span><span class="n">lm_data</span><span class="p">,</span><span class="w"> </span><span class="n">direction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;backward&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">scope</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">formula</span><span class="p">(</span><span class="n">lm_data</span><span class="p">),</span><span class="w"> </span><span class="n">trace</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">log</span><span class="p">(</span><span class="nf">nrow</span><span class="p">(</span><span class="n">index_data2</span><span class="p">)))</span>
-<span class="n">both_bic</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">step</span><span class="p">(</span><span class="n">intercept</span><span class="p">,</span><span class="w"> </span><span class="n">direction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;both&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">scope</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">formula</span><span class="p">(</span><span class="n">lm_data</span><span class="p">),</span><span class="w"> </span><span class="n">trace</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">log</span><span class="p">(</span><span class="nf">nrow</span><span class="p">(</span><span class="n">index_data2</span><span class="p">)))</span>
 </pre></div>
 
      </div>
@@ -17010,10 +16796,6 @@ MSA for each item =
 “attempting model selection on an essentially perfect fit is nonsense”
 Warning message:
 “attempting model selection on an essentially perfect fit is nonsense”
-Warning message:
-“attempting model selection on an essentially perfect fit is nonsense”
-Warning message:
-“attempting model selection on an essentially perfect fit is nonsense”
 </pre>
 </div>
 </div>
@@ -17022,7 +16804,7 @@ Warning message:
 
 </div>
 
-</div></section><section >
+</div>
 <div  class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
@@ -17038,7 +16820,7 @@ Warning message:
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[135]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-r"><pre><span></span><span class="n">forward</span><span class="o">$</span><span class="n">anova</span>
@@ -17063,23 +16845,24 @@ Warning message:
 
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output " data-mime-type="text/html">
 <table class="dataframe">
-<caption>A data.frame: 11 × 6</caption>
+<caption>A data.frame: 12 × 6</caption>
 <thead>
 	<tr><th scope=col>Step</th><th scope=col>Df</th><th scope=col>Deviance</th><th scope=col>Resid. Df</th><th scope=col>Resid. Dev</th><th scope=col>AIC</th></tr>
 	<tr><th scope=col>&lt;I&lt;chr&gt;&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th></tr>
 </thead>
 <tbody>
-	<tr><td>                  </td><td>NA</td><td>         NA</td><td>182</td><td>703.20098621800843829987570643424987793</td><td>   251.5561</td></tr>
-	<tr><td>+ with_internet   </td><td>-1</td><td>637.5479317</td><td>181</td><td> 65.65305450550512489371612900868058205</td><td>  -177.1747</td></tr>
-	<tr><td>+ mean_d_mbps     </td><td>-1</td><td> 27.9735433</td><td>180</td><td> 37.67951116380591258803178789094090462</td><td>  -273.5792</td></tr>
-	<tr><td>+ work_from_home  </td><td>-1</td><td> 12.0184712</td><td>179</td><td> 25.66103994550458722301300440449267626</td><td>  -338.6678</td></tr>
-	<tr><td>+ total_population</td><td>-1</td><td>  7.0349847</td><td>178</td><td> 18.62605519741248727427773701492697001</td><td>  -392.0938</td></tr>
-	<tr><td>+ X65_and_older   </td><td>-1</td><td>  6.2928412</td><td>177</td><td> 12.33321403238071489738558739190921187</td><td>  -462.3289</td></tr>
-	<tr><td>+ mean_lat_ms     </td><td>-1</td><td>  4.1275863</td><td>176</td><td>  8.20562772852354882502368127461522818</td><td>  -531.6875</td></tr>
-	<tr><td>+ mean_lowest_cost</td><td>-1</td><td>  3.1482264</td><td>175</td><td>  5.05740130314562819080492772627621889</td><td>  -615.0440</td></tr>
-	<tr><td>+ mean_u_mbps     </td><td>-1</td><td>  1.6553191</td><td>174</td><td>  3.40208220439476161089942252147011459</td><td>  -682.3876</td></tr>
-	<tr><td>+ number_providers</td><td>-1</td><td>  2.6653434</td><td>173</td><td>  0.73673879259798624730137817095965147</td><td>  -957.1516</td></tr>
-	<tr><td>+ has_computer    </td><td>-1</td><td>  0.7367388</td><td>172</td><td>  0.00000000000000000000000000004067449</td><td>-12859.0988</td></tr>
+	<tr><td>                  </td><td>NA</td><td>              NA</td><td>182</td><td>2056.5121348192001278221141546964645386</td><td>   444.7283</td></tr>
+	<tr><td>+ has_computer    </td><td>-1</td><td>1973.98068984116</td><td>181</td><td>  82.5314449780382233257114421576261520</td><td>  -141.7241</td></tr>
+	<tr><td>+ no_computer     </td><td>-1</td><td>  71.48547789049</td><td>180</td><td>  11.0459670875511459797735369647853076</td><td>  -507.7580</td></tr>
+	<tr><td>+ total_population</td><td>-1</td><td>   5.00674638494</td><td>179</td><td>   6.0392207026073547737610169861000031</td><td>  -616.2516</td></tr>
+	<tr><td>+ work_from_home  </td><td>-1</td><td>   3.22523188236</td><td>178</td><td>   2.8139888202497407299063070240663365</td><td>  -754.0036</td></tr>
+	<tr><td>+ X65_and_older   </td><td>-1</td><td>   1.66331575947</td><td>177</td><td>   1.1506730607828732360076173790730536</td><td>  -915.6525</td></tr>
+	<tr><td>+ no_internet     </td><td>-1</td><td>   0.15956057498</td><td>176</td><td>   0.9911124858030412321241442441532854</td><td>  -940.9697</td></tr>
+	<tr><td>+ with_internet   </td><td>-1</td><td>   0.84907037489</td><td>175</td><td>   0.1420421109120046654350488779527950</td><td> -1294.4846</td></tr>
+	<tr><td>+ mean_d_mbps     </td><td>-1</td><td>   0.09485674564</td><td>174</td><td>   0.0471853652693200315004773415239470</td><td> -1494.1578</td></tr>
+	<tr><td>+ median_income   </td><td>-1</td><td>   0.03110971525</td><td>173</td><td>   0.0160756500204489172212163339281688</td><td> -1689.2082</td></tr>
+	<tr><td>+ mean_u_mbps     </td><td>-1</td><td>   0.01606334587</td><td>172</td><td>   0.0000123041484632321350997478937028</td><td> -3000.2560</td></tr>
+	<tr><td>+ mean_lat_ms     </td><td>-1</td><td>   0.00001230415</td><td>171</td><td>   0.0000000000000000000000000008060636</td><td>-12345.8624</td></tr>
 </tbody>
 </table>
 
@@ -17091,70 +16874,12 @@ Warning message:
 
 </div>
 
-</div></section><section ><div  class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+</div><div  class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[142]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-r"><pre><span></span><span class="n">forward_bic</span><span class="o">$</span><span class="n">anova</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child">
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-
-<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output " data-mime-type="text/html">
-<table class="dataframe">
-<caption>A data.frame: 11 × 6</caption>
-<thead>
-	<tr><th scope=col>Step</th><th scope=col>Df</th><th scope=col>Deviance</th><th scope=col>Resid. Df</th><th scope=col>Resid. Dev</th><th scope=col>AIC</th></tr>
-	<tr><th scope=col>&lt;I&lt;chr&gt;&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th></tr>
-</thead>
-<tbody>
-	<tr><td>                  </td><td>NA</td><td>         NA</td><td>182</td><td>703.20098621800843829987570643424987793</td><td>   251.5561</td></tr>
-	<tr><td>+ with_internet   </td><td>-1</td><td>637.5479317</td><td>181</td><td> 65.65305450550512489371612900868058205</td><td>  -177.1747</td></tr>
-	<tr><td>+ mean_d_mbps     </td><td>-1</td><td> 27.9735433</td><td>180</td><td> 37.67951116380591258803178789094090462</td><td>  -273.5792</td></tr>
-	<tr><td>+ work_from_home  </td><td>-1</td><td> 12.0184712</td><td>179</td><td> 25.66103994550458722301300440449267626</td><td>  -338.6678</td></tr>
-	<tr><td>+ total_population</td><td>-1</td><td>  7.0349847</td><td>178</td><td> 18.62605519741248727427773701492697001</td><td>  -392.0938</td></tr>
-	<tr><td>+ X65_and_older   </td><td>-1</td><td>  6.2928412</td><td>177</td><td> 12.33321403238071489738558739190921187</td><td>  -462.3289</td></tr>
-	<tr><td>+ mean_lat_ms     </td><td>-1</td><td>  4.1275863</td><td>176</td><td>  8.20562772852354882502368127461522818</td><td>  -531.6875</td></tr>
-	<tr><td>+ mean_lowest_cost</td><td>-1</td><td>  3.1482264</td><td>175</td><td>  5.05740130314562819080492772627621889</td><td>  -615.0440</td></tr>
-	<tr><td>+ mean_u_mbps     </td><td>-1</td><td>  1.6553191</td><td>174</td><td>  3.40208220439476161089942252147011459</td><td>  -682.3876</td></tr>
-	<tr><td>+ number_providers</td><td>-1</td><td>  2.6653434</td><td>173</td><td>  0.73673879259798624730137817095965147</td><td>  -957.1516</td></tr>
-	<tr><td>+ has_computer    </td><td>-1</td><td>  0.7367388</td><td>172</td><td>  0.00000000000000000000000000004067449</td><td>-12859.0988</td></tr>
-</tbody>
-</table>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div></section><section ><div  class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[136]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-r"><pre><span></span><span class="n">forward</span>
@@ -17181,19 +16906,20 @@ Warning message:
 <div class="jp-RenderedText jp-OutputArea-output " data-mime-type="text/plain">
 <pre>
 Call:
-lm(formula = index ~ with_internet + mean_d_mbps + work_from_home + 
-    total_population + X65_and_older + mean_lat_ms + mean_lowest_cost + 
-    mean_u_mbps + number_providers + has_computer, data = index_data2)
+lm(formula = index ~ has_computer + no_computer + total_population + 
+    work_from_home + X65_and_older + no_internet + with_internet + 
+    mean_d_mbps + median_income + mean_u_mbps + mean_lat_ms, 
+    data = index_data2)
 
 Coefficients:
-           (Intercept)           with_internet             mean_d_mbps  
--0.0000000000000000341   0.4844094907499328362   0.2623924148424930936  
-        work_from_home        total_population           X65_and_older  
- 0.2609643935694284655   0.4528009461375878120   0.3137032282915110937  
-           mean_lat_ms        mean_lowest_cost             mean_u_mbps  
--0.2101406902830652568   0.1092570389869753633   0.1410615093362440342  
-      number_providers            has_computer  
--0.1420782190977260828   0.4783054033677653916  
+           (Intercept)            has_computer             no_computer  
+-0.0000000000000003808   1.9154146204124751218   0.5045892413035776292  
+      total_population          work_from_home           X65_and_older  
+ 0.3291320241692457516   0.1303658418524550333   0.1234616012470693275  
+           no_internet           with_internet             mean_d_mbps  
+ 0.2176467244401667500   0.7463014283110829261   0.0265189477840973992  
+         median_income             mean_u_mbps             mean_lat_ms  
+ 0.0140382440230635824   0.0109365701183885902  -0.0004890093448710800  
 </pre>
 </div>
 
@@ -17203,247 +16929,7 @@ Coefficients:
 
 </div>
 
-</div></section><section ><div  class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[144]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-r"><pre><span></span><span class="n">forward_bic</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child">
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-
-
-<div class="jp-RenderedText jp-OutputArea-output " data-mime-type="text/plain">
-<pre>
-Call:
-lm(formula = index ~ with_internet + mean_d_mbps + work_from_home + 
-    total_population + X65_and_older + mean_lat_ms + mean_lowest_cost + 
-    mean_u_mbps + number_providers + has_computer, data = index_data2)
-
-Coefficients:
-           (Intercept)           with_internet             mean_d_mbps  
--0.0000000000000000341   0.4844094907499328362   0.2623924148424930936  
-        work_from_home        total_population           X65_and_older  
- 0.2609643935694284655   0.4528009461375878120   0.3137032282915110937  
-           mean_lat_ms        mean_lowest_cost             mean_u_mbps  
--0.2101406902830652568   0.1092570389869753633   0.1410615093362440342  
-      number_providers            has_computer  
--0.1420782190977260828   0.4783054033677653916  
-</pre>
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div></section><section ><div  class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[149]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-r"><pre><span></span><span class="nf">summary</span><span class="p">(</span><span class="n">forward</span><span class="p">)</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child">
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
-<pre>Warning message in summary.lm(forward):
-“essentially perfect fit: summary may be unreliable”
-</pre>
-</div>
-</div>
-<div class="jp-OutputArea-child">
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-
-
-<div class="jp-RenderedText jp-OutputArea-output " data-mime-type="text/plain">
-<pre>
-Call:
-lm(formula = index ~ with_internet + mean_d_mbps + work_from_home + 
-    total_population + X65_and_older + mean_lat_ms + mean_lowest_cost + 
-    mean_u_mbps + number_providers + has_computer, data = index_data2)
-
-Residuals:
-                   Min                     1Q                 Median 
--0.0000000000000026870 -0.0000000000000001139  0.0000000000000000141 
-                    3Q                    Max 
- 0.0000000000000001618  0.0000000000000028486 
-
-Coefficients:
-                                Estimate              Std. Error
-(Intercept)      -0.00000000000000003410  0.00000000000000003595
-with_internet     0.48440949074993283618  0.00000000000000027484
-mean_d_mbps       0.26239241484249309355  0.00000000000000007136
-work_from_home    0.26096439356942846555  0.00000000000000004236
-total_population  0.45280094613758781197  0.00000000000000008164
-X65_and_older     0.31370322829151109367  0.00000000000000005221
-mean_lat_ms      -0.21014069028306525677  0.00000000000000006781
-mean_lowest_cost  0.10925703898697536331  0.00000000000000003933
-mean_u_mbps       0.14106150933624403421  0.00000000000000004409
-number_providers -0.14207821909772608282  0.00000000000000004521
-has_computer      0.47830540336776539156  0.00000000000000027099
-                               t value            Pr(&gt;|t|)    
-(Intercept)                     -0.949               0.344    
-with_internet     1762502596513509.750 &lt;0.0000000000000002 ***
-mean_d_mbps       3677182864544718.500 &lt;0.0000000000000002 ***
-work_from_home    6160388209493108.000 &lt;0.0000000000000002 ***
-total_population  5545989506880560.000 &lt;0.0000000000000002 ***
-X65_and_older     6008395093172970.000 &lt;0.0000000000000002 ***
-mean_lat_ms      -3098768204949454.500 &lt;0.0000000000000002 ***
-mean_lowest_cost  2778241457606855.500 &lt;0.0000000000000002 ***
-mean_u_mbps       3199315472318010.000 &lt;0.0000000000000002 ***
-number_providers -3142680147117755.500 &lt;0.0000000000000002 ***
-has_computer      1765061923036970.500 &lt;0.0000000000000002 ***
----
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-
-Residual standard error: 0.0000000000000004863 on 172 degrees of freedom
-Multiple R-squared:      1,	Adjusted R-squared:      1 
-F-statistic: 2.974e+32 on 10 and 172 DF,  p-value: &lt; 0.00000000000000022
-</pre>
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div></section><section ><div  class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[150]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-r"><pre><span></span><span class="nf">summary</span><span class="p">(</span><span class="n">forward_bic</span><span class="p">)</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child">
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
-<pre>Warning message in summary.lm(forward_bic):
-“essentially perfect fit: summary may be unreliable”
-</pre>
-</div>
-</div>
-<div class="jp-OutputArea-child">
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-
-
-<div class="jp-RenderedText jp-OutputArea-output " data-mime-type="text/plain">
-<pre>
-Call:
-lm(formula = index ~ with_internet + mean_d_mbps + work_from_home + 
-    total_population + X65_and_older + mean_lat_ms + mean_lowest_cost + 
-    mean_u_mbps + number_providers + has_computer, data = index_data2)
-
-Residuals:
-                   Min                     1Q                 Median 
--0.0000000000000026870 -0.0000000000000001139  0.0000000000000000141 
-                    3Q                    Max 
- 0.0000000000000001618  0.0000000000000028486 
-
-Coefficients:
-                                Estimate              Std. Error
-(Intercept)      -0.00000000000000003410  0.00000000000000003595
-with_internet     0.48440949074993283618  0.00000000000000027484
-mean_d_mbps       0.26239241484249309355  0.00000000000000007136
-work_from_home    0.26096439356942846555  0.00000000000000004236
-total_population  0.45280094613758781197  0.00000000000000008164
-X65_and_older     0.31370322829151109367  0.00000000000000005221
-mean_lat_ms      -0.21014069028306525677  0.00000000000000006781
-mean_lowest_cost  0.10925703898697536331  0.00000000000000003933
-mean_u_mbps       0.14106150933624403421  0.00000000000000004409
-number_providers -0.14207821909772608282  0.00000000000000004521
-has_computer      0.47830540336776539156  0.00000000000000027099
-                               t value            Pr(&gt;|t|)    
-(Intercept)                     -0.949               0.344    
-with_internet     1762502596513509.750 &lt;0.0000000000000002 ***
-mean_d_mbps       3677182864544718.500 &lt;0.0000000000000002 ***
-work_from_home    6160388209493108.000 &lt;0.0000000000000002 ***
-total_population  5545989506880560.000 &lt;0.0000000000000002 ***
-X65_and_older     6008395093172970.000 &lt;0.0000000000000002 ***
-mean_lat_ms      -3098768204949454.500 &lt;0.0000000000000002 ***
-mean_lowest_cost  2778241457606855.500 &lt;0.0000000000000002 ***
-mean_u_mbps       3199315472318010.000 &lt;0.0000000000000002 ***
-number_providers -3142680147117755.500 &lt;0.0000000000000002 ***
-has_computer      1765061923036970.500 &lt;0.0000000000000002 ***
----
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-
-Residual standard error: 0.0000000000000004863 on 172 degrees of freedom
-Multiple R-squared:      1,	Adjusted R-squared:      1 
-F-statistic: 2.974e+32 on 10 and 172 DF,  p-value: &lt; 0.00000000000000022
-</pre>
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div></section><section >
 <div  class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
@@ -17459,7 +16945,7 @@ F-statistic: 2.974e+32 on 10 and 172 DF,  p-value: &lt; 0.00000000000000022
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[147]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-r"><pre><span></span><span class="n">backward</span><span class="o">$</span><span class="n">anova</span>
@@ -17490,7 +16976,7 @@ F-statistic: 2.974e+32 on 10 and 172 DF,  p-value: &lt; 0.00000000000000022
 	<tr><th scope=col>&lt;I&lt;chr&gt;&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th></tr>
 </thead>
 <tbody>
-	<tr><td></td><td>NA</td><td>NA</td><td>172</td><td>0.0000000000000000000000000001257256</td><td>-12652.58</td></tr>
+	<tr><td></td><td>NA</td><td>NA</td><td>171</td><td>0.0000000000000000000000000008093069</td><td>-12345.13</td></tr>
 </tbody>
 </table>
 
@@ -17502,60 +16988,12 @@ F-statistic: 2.974e+32 on 10 and 172 DF,  p-value: &lt; 0.00000000000000022
 
 </div>
 
-</div></section><section ><div  class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+</div><div  class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[151]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-r"><pre><span></span><span class="n">backward_bic</span><span class="o">$</span><span class="n">anova</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child">
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-
-<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output " data-mime-type="text/html">
-<table class="dataframe">
-<caption>A data.frame: 1 × 6</caption>
-<thead>
-	<tr><th scope=col>Step</th><th scope=col>Df</th><th scope=col>Deviance</th><th scope=col>Resid. Df</th><th scope=col>Resid. Dev</th><th scope=col>AIC</th></tr>
-	<tr><th scope=col>&lt;I&lt;chr&gt;&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th></tr>
-</thead>
-<tbody>
-	<tr><td></td><td>NA</td><td>NA</td><td>172</td><td>0.0000000000000000000000000001257256</td><td>-12652.58</td></tr>
-</tbody>
-</table>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div></section><section ><div  class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[152]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-r"><pre><span></span><span class="n">backward</span>
@@ -17582,19 +17020,20 @@ F-statistic: 2.974e+32 on 10 and 172 DF,  p-value: &lt; 0.00000000000000022
 <div class="jp-RenderedText jp-OutputArea-output " data-mime-type="text/plain">
 <pre>
 Call:
-lm(formula = index ~ has_computer + with_internet + total_population + 
-    work_from_home + X65_and_older + number_providers + mean_lowest_cost + 
-    mean_d_mbps + mean_u_mbps + mean_lat_ms, data = index_data2)
+lm(formula = index ~ has_computer + no_computer + with_internet + 
+    no_internet + total_population + work_from_home + X65_and_older + 
+    median_income + mean_d_mbps + mean_u_mbps + mean_lat_ms, 
+    data = index_data2)
 
 Coefficients:
-           (Intercept)            has_computer           with_internet  
--0.0000000000000000341   0.4783054033677658912   0.4844094907499331693  
-      total_population          work_from_home           X65_and_older  
- 0.4528009461375878120   0.2609643935694285766   0.3137032282915111492  
-      number_providers        mean_lowest_cost             mean_d_mbps  
--0.1420782190977260828   0.1092570389869754882   0.2623924148424926495  
-           mean_u_mbps             mean_lat_ms  
- 0.1410615093362440897  -0.2101406902830655343  
+           (Intercept)            has_computer             no_computer  
+-0.0000000000000003808   1.9154146204124755659   0.5045892413035777402  
+         with_internet             no_internet        total_population  
+ 0.7463014283110825930   0.2176467244401667223   0.3291320241692458071  
+        work_from_home           X65_and_older           median_income  
+ 0.1303658418524549500   0.1234616012470693691   0.0140382440230635824  
+           mean_d_mbps             mean_u_mbps             mean_lat_ms  
+ 0.0265189477840974061   0.0109365701183885711  -0.0004890093448710946  
 </pre>
 </div>
 
@@ -17604,247 +17043,7 @@ Coefficients:
 
 </div>
 
-</div></section><section ><div  class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[153]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-r"><pre><span></span><span class="n">backward_bic</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child">
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-
-
-<div class="jp-RenderedText jp-OutputArea-output " data-mime-type="text/plain">
-<pre>
-Call:
-lm(formula = index ~ has_computer + with_internet + total_population + 
-    work_from_home + X65_and_older + number_providers + mean_lowest_cost + 
-    mean_d_mbps + mean_u_mbps + mean_lat_ms, data = index_data2)
-
-Coefficients:
-           (Intercept)            has_computer           with_internet  
--0.0000000000000000341   0.4783054033677658912   0.4844094907499331693  
-      total_population          work_from_home           X65_and_older  
- 0.4528009461375878120   0.2609643935694285766   0.3137032282915111492  
-      number_providers        mean_lowest_cost             mean_d_mbps  
--0.1420782190977260828   0.1092570389869754882   0.2623924148424926495  
-           mean_u_mbps             mean_lat_ms  
- 0.1410615093362440897  -0.2101406902830655343  
-</pre>
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div></section><section ><div  class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[154]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-r"><pre><span></span><span class="nf">summary</span><span class="p">(</span><span class="n">backward</span><span class="p">)</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child">
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
-<pre>Warning message in summary.lm(backward):
-“essentially perfect fit: summary may be unreliable”
-</pre>
-</div>
-</div>
-<div class="jp-OutputArea-child">
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-
-
-<div class="jp-RenderedText jp-OutputArea-output " data-mime-type="text/plain">
-<pre>
-Call:
-lm(formula = index ~ has_computer + with_internet + total_population + 
-    work_from_home + X65_and_older + number_providers + mean_lowest_cost + 
-    mean_d_mbps + mean_u_mbps + mean_lat_ms, data = index_data2)
-
-Residuals:
-                   Min                     1Q                 Median 
--0.0000000000000023792 -0.0000000000000002494 -0.0000000000000000194 
-                    3Q                    Max 
- 0.0000000000000001804  0.0000000000000090374 
-
-Coefficients:
-                                Estimate              Std. Error
-(Intercept)      -0.00000000000000003410  0.00000000000000006320
-has_computer      0.47830540336776589116  0.00000000000000047643
-with_internet     0.48440949074993316925  0.00000000000000048321
-total_population  0.45280094613758781197  0.00000000000000014354
-work_from_home    0.26096439356942857657  0.00000000000000007448
-X65_and_older     0.31370322829151114918  0.00000000000000009179
-number_providers -0.14207821909772608282  0.00000000000000007948
-mean_lowest_cost  0.10925703898697548822  0.00000000000000006914
-mean_d_mbps       0.26239241484249264946  0.00000000000000012545
-mean_u_mbps       0.14106150933624408972  0.00000000000000007752
-mean_lat_ms      -0.21014069028306553433  0.00000000000000011923
-                              t value            Pr(&gt;|t|)    
-(Intercept)                     -0.54                0.59    
-has_computer      1003943236348812.00 &lt;0.0000000000000002 ***
-with_internet     1002487526201024.50 &lt;0.0000000000000002 ***
-total_population  3154483466910973.00 &lt;0.0000000000000002 ***
-work_from_home    3503945099876265.00 &lt;0.0000000000000002 ***
-X65_and_older     3417493480751971.00 &lt;0.0000000000000002 ***
-number_providers -1787513761714336.00 &lt;0.0000000000000002 ***
-mean_lowest_cost  1580225987487830.75 &lt;0.0000000000000002 ***
-mean_d_mbps       2091531644014781.75 &lt;0.0000000000000002 ***
-mean_u_mbps       1819727165069262.25 &lt;0.0000000000000002 ***
-mean_lat_ms      -1762537245729588.75 &lt;0.0000000000000002 ***
----
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-
-Residual standard error: 0.000000000000000855 on 172 degrees of freedom
-Multiple R-squared:      1,	Adjusted R-squared:      1 
-F-statistic: 9.62e+31 on 10 and 172 DF,  p-value: &lt; 0.00000000000000022
-</pre>
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div><div  class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[155]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-r"><pre><span></span><span class="nf">summary</span><span class="p">(</span><span class="n">backward_bic</span><span class="p">)</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child">
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
-<pre>Warning message in summary.lm(backward_bic):
-“essentially perfect fit: summary may be unreliable”
-</pre>
-</div>
-</div>
-<div class="jp-OutputArea-child">
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-
-
-<div class="jp-RenderedText jp-OutputArea-output " data-mime-type="text/plain">
-<pre>
-Call:
-lm(formula = index ~ has_computer + with_internet + total_population + 
-    work_from_home + X65_and_older + number_providers + mean_lowest_cost + 
-    mean_d_mbps + mean_u_mbps + mean_lat_ms, data = index_data2)
-
-Residuals:
-                   Min                     1Q                 Median 
--0.0000000000000023792 -0.0000000000000002494 -0.0000000000000000194 
-                    3Q                    Max 
- 0.0000000000000001804  0.0000000000000090374 
-
-Coefficients:
-                                Estimate              Std. Error
-(Intercept)      -0.00000000000000003410  0.00000000000000006320
-has_computer      0.47830540336776589116  0.00000000000000047643
-with_internet     0.48440949074993316925  0.00000000000000048321
-total_population  0.45280094613758781197  0.00000000000000014354
-work_from_home    0.26096439356942857657  0.00000000000000007448
-X65_and_older     0.31370322829151114918  0.00000000000000009179
-number_providers -0.14207821909772608282  0.00000000000000007948
-mean_lowest_cost  0.10925703898697548822  0.00000000000000006914
-mean_d_mbps       0.26239241484249264946  0.00000000000000012545
-mean_u_mbps       0.14106150933624408972  0.00000000000000007752
-mean_lat_ms      -0.21014069028306553433  0.00000000000000011923
-                              t value            Pr(&gt;|t|)    
-(Intercept)                     -0.54                0.59    
-has_computer      1003943236348812.00 &lt;0.0000000000000002 ***
-with_internet     1002487526201024.50 &lt;0.0000000000000002 ***
-total_population  3154483466910973.00 &lt;0.0000000000000002 ***
-work_from_home    3503945099876265.00 &lt;0.0000000000000002 ***
-X65_and_older     3417493480751971.00 &lt;0.0000000000000002 ***
-number_providers -1787513761714336.00 &lt;0.0000000000000002 ***
-mean_lowest_cost  1580225987487830.75 &lt;0.0000000000000002 ***
-mean_d_mbps       2091531644014781.75 &lt;0.0000000000000002 ***
-mean_u_mbps       1819727165069262.25 &lt;0.0000000000000002 ***
-mean_lat_ms      -1762537245729588.75 &lt;0.0000000000000002 ***
----
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-
-Residual standard error: 0.000000000000000855 on 172 degrees of freedom
-Multiple R-squared:      1,	Adjusted R-squared:      1 
-F-statistic: 9.62e+31 on 10 and 172 DF,  p-value: &lt; 0.00000000000000022
-</pre>
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div></section><section >
 <div  class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
@@ -17860,7 +17059,7 @@ F-statistic: 9.62e+31 on 10 and 172 DF,  p-value: &lt; 0.00000000000000022
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[138]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-r"><pre><span></span><span class="n">both</span><span class="o">$</span><span class="n">anova</span>
@@ -17885,23 +17084,24 @@ F-statistic: 9.62e+31 on 10 and 172 DF,  p-value: &lt; 0.00000000000000022
 
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output " data-mime-type="text/html">
 <table class="dataframe">
-<caption>A data.frame: 11 × 6</caption>
+<caption>A data.frame: 12 × 6</caption>
 <thead>
 	<tr><th scope=col>Step</th><th scope=col>Df</th><th scope=col>Deviance</th><th scope=col>Resid. Df</th><th scope=col>Resid. Dev</th><th scope=col>AIC</th></tr>
 	<tr><th scope=col>&lt;I&lt;chr&gt;&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th></tr>
 </thead>
 <tbody>
-	<tr><td>                  </td><td>NA</td><td>         NA</td><td>182</td><td>703.20098621800843829987570643424987793</td><td>   251.5561</td></tr>
-	<tr><td>+ with_internet   </td><td>-1</td><td>637.5479317</td><td>181</td><td> 65.65305450550512489371612900868058205</td><td>  -177.1747</td></tr>
-	<tr><td>+ mean_d_mbps     </td><td>-1</td><td> 27.9735433</td><td>180</td><td> 37.67951116380591258803178789094090462</td><td>  -273.5792</td></tr>
-	<tr><td>+ work_from_home  </td><td>-1</td><td> 12.0184712</td><td>179</td><td> 25.66103994550458722301300440449267626</td><td>  -338.6678</td></tr>
-	<tr><td>+ total_population</td><td>-1</td><td>  7.0349847</td><td>178</td><td> 18.62605519741248727427773701492697001</td><td>  -392.0938</td></tr>
-	<tr><td>+ X65_and_older   </td><td>-1</td><td>  6.2928412</td><td>177</td><td> 12.33321403238071489738558739190921187</td><td>  -462.3289</td></tr>
-	<tr><td>+ mean_lat_ms     </td><td>-1</td><td>  4.1275863</td><td>176</td><td>  8.20562772852354882502368127461522818</td><td>  -531.6875</td></tr>
-	<tr><td>+ mean_lowest_cost</td><td>-1</td><td>  3.1482264</td><td>175</td><td>  5.05740130314562819080492772627621889</td><td>  -615.0440</td></tr>
-	<tr><td>+ mean_u_mbps     </td><td>-1</td><td>  1.6553191</td><td>174</td><td>  3.40208220439476161089942252147011459</td><td>  -682.3876</td></tr>
-	<tr><td>+ number_providers</td><td>-1</td><td>  2.6653434</td><td>173</td><td>  0.73673879259798624730137817095965147</td><td>  -957.1516</td></tr>
-	<tr><td>+ has_computer    </td><td>-1</td><td>  0.7367388</td><td>172</td><td>  0.00000000000000000000000000004067449</td><td>-12859.0988</td></tr>
+	<tr><td>                  </td><td>NA</td><td>              NA</td><td>182</td><td>2056.5121348192001278221141546964645386</td><td>   444.7283</td></tr>
+	<tr><td>+ has_computer    </td><td>-1</td><td>1973.98068984116</td><td>181</td><td>  82.5314449780382233257114421576261520</td><td>  -141.7241</td></tr>
+	<tr><td>+ no_computer     </td><td>-1</td><td>  71.48547789049</td><td>180</td><td>  11.0459670875511459797735369647853076</td><td>  -507.7580</td></tr>
+	<tr><td>+ total_population</td><td>-1</td><td>   5.00674638494</td><td>179</td><td>   6.0392207026073547737610169861000031</td><td>  -616.2516</td></tr>
+	<tr><td>+ work_from_home  </td><td>-1</td><td>   3.22523188236</td><td>178</td><td>   2.8139888202497407299063070240663365</td><td>  -754.0036</td></tr>
+	<tr><td>+ X65_and_older   </td><td>-1</td><td>   1.66331575947</td><td>177</td><td>   1.1506730607828732360076173790730536</td><td>  -915.6525</td></tr>
+	<tr><td>+ no_internet     </td><td>-1</td><td>   0.15956057498</td><td>176</td><td>   0.9911124858030412321241442441532854</td><td>  -940.9697</td></tr>
+	<tr><td>+ with_internet   </td><td>-1</td><td>   0.84907037489</td><td>175</td><td>   0.1420421109120046654350488779527950</td><td> -1294.4846</td></tr>
+	<tr><td>+ mean_d_mbps     </td><td>-1</td><td>   0.09485674564</td><td>174</td><td>   0.0471853652693200315004773415239470</td><td> -1494.1578</td></tr>
+	<tr><td>+ median_income   </td><td>-1</td><td>   0.03110971525</td><td>173</td><td>   0.0160756500204489172212163339281688</td><td> -1689.2082</td></tr>
+	<tr><td>+ mean_u_mbps     </td><td>-1</td><td>   0.01606334587</td><td>172</td><td>   0.0000123041484632321350997478937028</td><td> -3000.2560</td></tr>
+	<tr><td>+ mean_lat_ms     </td><td>-1</td><td>   0.00001230415</td><td>171</td><td>   0.0000000000000000000000000008060636</td><td>-12345.8624</td></tr>
 </tbody>
 </table>
 
@@ -17913,12 +17113,12 @@ F-statistic: 9.62e+31 on 10 and 172 DF,  p-value: &lt; 0.00000000000000022
 
 </div>
 
-</div></section><section ><div  class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+</div><div  class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[156]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-r"><pre><span></span><span class="n">both</span>
@@ -17945,19 +17145,20 @@ F-statistic: 9.62e+31 on 10 and 172 DF,  p-value: &lt; 0.00000000000000022
 <div class="jp-RenderedText jp-OutputArea-output " data-mime-type="text/plain">
 <pre>
 Call:
-lm(formula = index ~ with_internet + mean_d_mbps + work_from_home + 
-    total_population + X65_and_older + mean_lat_ms + mean_lowest_cost + 
-    mean_u_mbps + number_providers + has_computer, data = index_data2)
+lm(formula = index ~ has_computer + no_computer + total_population + 
+    work_from_home + X65_and_older + no_internet + with_internet + 
+    mean_d_mbps + median_income + mean_u_mbps + mean_lat_ms, 
+    data = index_data2)
 
 Coefficients:
-           (Intercept)           with_internet             mean_d_mbps  
--0.0000000000000000341   0.4844094907499328362   0.2623924148424930936  
-        work_from_home        total_population           X65_and_older  
- 0.2609643935694284655   0.4528009461375878120   0.3137032282915110937  
-           mean_lat_ms        mean_lowest_cost             mean_u_mbps  
--0.2101406902830652568   0.1092570389869753633   0.1410615093362440342  
-      number_providers            has_computer  
--0.1420782190977260828   0.4783054033677653916  
+           (Intercept)            has_computer             no_computer  
+-0.0000000000000003808   1.9154146204124751218   0.5045892413035776292  
+      total_population          work_from_home           X65_and_older  
+ 0.3291320241692457516   0.1303658418524550333   0.1234616012470693275  
+           no_internet           with_internet             mean_d_mbps  
+ 0.2176467244401667500   0.7463014283110829261   0.0265189477840973992  
+         median_income             mean_u_mbps             mean_lat_ms  
+ 0.0140382440230635824   0.0109365701183885902  -0.0004890093448710800  
 </pre>
 </div>
 
@@ -17967,268 +17168,6 @@ Coefficients:
 
 </div>
 
-</div></section><section ><div  class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[157]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-r"><pre><span></span><span class="n">both_bic</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child">
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-
-
-<div class="jp-RenderedText jp-OutputArea-output " data-mime-type="text/plain">
-<pre>
-Call:
-lm(formula = index ~ with_internet + mean_d_mbps + work_from_home + 
-    total_population + X65_and_older + mean_lat_ms + mean_lowest_cost + 
-    mean_u_mbps + number_providers + has_computer, data = index_data2)
-
-Coefficients:
-           (Intercept)           with_internet             mean_d_mbps  
--0.0000000000000000341   0.4844094907499328362   0.2623924148424930936  
-        work_from_home        total_population           X65_and_older  
- 0.2609643935694284655   0.4528009461375878120   0.3137032282915110937  
-           mean_lat_ms        mean_lowest_cost             mean_u_mbps  
--0.2101406902830652568   0.1092570389869753633   0.1410615093362440342  
-      number_providers            has_computer  
--0.1420782190977260828   0.4783054033677653916  
-</pre>
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div></section><section ><div  class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[158]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-r"><pre><span></span><span class="nf">summary</span><span class="p">(</span><span class="n">both</span><span class="p">)</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child">
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
-<pre>Warning message in summary.lm(both):
-“essentially perfect fit: summary may be unreliable”
-</pre>
-</div>
-</div>
-<div class="jp-OutputArea-child">
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-
-
-<div class="jp-RenderedText jp-OutputArea-output " data-mime-type="text/plain">
-<pre>
-Call:
-lm(formula = index ~ with_internet + mean_d_mbps + work_from_home + 
-    total_population + X65_and_older + mean_lat_ms + mean_lowest_cost + 
-    mean_u_mbps + number_providers + has_computer, data = index_data2)
-
-Residuals:
-                   Min                     1Q                 Median 
--0.0000000000000026870 -0.0000000000000001139  0.0000000000000000141 
-                    3Q                    Max 
- 0.0000000000000001618  0.0000000000000028486 
-
-Coefficients:
-                                Estimate              Std. Error
-(Intercept)      -0.00000000000000003410  0.00000000000000003595
-with_internet     0.48440949074993283618  0.00000000000000027484
-mean_d_mbps       0.26239241484249309355  0.00000000000000007136
-work_from_home    0.26096439356942846555  0.00000000000000004236
-total_population  0.45280094613758781197  0.00000000000000008164
-X65_and_older     0.31370322829151109367  0.00000000000000005221
-mean_lat_ms      -0.21014069028306525677  0.00000000000000006781
-mean_lowest_cost  0.10925703898697536331  0.00000000000000003933
-mean_u_mbps       0.14106150933624403421  0.00000000000000004409
-number_providers -0.14207821909772608282  0.00000000000000004521
-has_computer      0.47830540336776539156  0.00000000000000027099
-                               t value            Pr(&gt;|t|)    
-(Intercept)                     -0.949               0.344    
-with_internet     1762502596513509.750 &lt;0.0000000000000002 ***
-mean_d_mbps       3677182864544718.500 &lt;0.0000000000000002 ***
-work_from_home    6160388209493108.000 &lt;0.0000000000000002 ***
-total_population  5545989506880560.000 &lt;0.0000000000000002 ***
-X65_and_older     6008395093172970.000 &lt;0.0000000000000002 ***
-mean_lat_ms      -3098768204949454.500 &lt;0.0000000000000002 ***
-mean_lowest_cost  2778241457606855.500 &lt;0.0000000000000002 ***
-mean_u_mbps       3199315472318010.000 &lt;0.0000000000000002 ***
-number_providers -3142680147117755.500 &lt;0.0000000000000002 ***
-has_computer      1765061923036970.500 &lt;0.0000000000000002 ***
----
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-
-Residual standard error: 0.0000000000000004863 on 172 degrees of freedom
-Multiple R-squared:      1,	Adjusted R-squared:      1 
-F-statistic: 2.974e+32 on 10 and 172 DF,  p-value: &lt; 0.00000000000000022
-</pre>
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div><div  class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[159]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-r"><pre><span></span><span class="nf">summary</span><span class="p">(</span><span class="n">both_bic</span><span class="p">)</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child">
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
-<pre>Warning message in summary.lm(both_bic):
-“essentially perfect fit: summary may be unreliable”
-</pre>
-</div>
-</div>
-<div class="jp-OutputArea-child">
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-
-
-<div class="jp-RenderedText jp-OutputArea-output " data-mime-type="text/plain">
-<pre>
-Call:
-lm(formula = index ~ with_internet + mean_d_mbps + work_from_home + 
-    total_population + X65_and_older + mean_lat_ms + mean_lowest_cost + 
-    mean_u_mbps + number_providers + has_computer, data = index_data2)
-
-Residuals:
-                   Min                     1Q                 Median 
--0.0000000000000026870 -0.0000000000000001139  0.0000000000000000141 
-                    3Q                    Max 
- 0.0000000000000001618  0.0000000000000028486 
-
-Coefficients:
-                                Estimate              Std. Error
-(Intercept)      -0.00000000000000003410  0.00000000000000003595
-with_internet     0.48440949074993283618  0.00000000000000027484
-mean_d_mbps       0.26239241484249309355  0.00000000000000007136
-work_from_home    0.26096439356942846555  0.00000000000000004236
-total_population  0.45280094613758781197  0.00000000000000008164
-X65_and_older     0.31370322829151109367  0.00000000000000005221
-mean_lat_ms      -0.21014069028306525677  0.00000000000000006781
-mean_lowest_cost  0.10925703898697536331  0.00000000000000003933
-mean_u_mbps       0.14106150933624403421  0.00000000000000004409
-number_providers -0.14207821909772608282  0.00000000000000004521
-has_computer      0.47830540336776539156  0.00000000000000027099
-                               t value            Pr(&gt;|t|)    
-(Intercept)                     -0.949               0.344    
-with_internet     1762502596513509.750 &lt;0.0000000000000002 ***
-mean_d_mbps       3677182864544718.500 &lt;0.0000000000000002 ***
-work_from_home    6160388209493108.000 &lt;0.0000000000000002 ***
-total_population  5545989506880560.000 &lt;0.0000000000000002 ***
-X65_and_older     6008395093172970.000 &lt;0.0000000000000002 ***
-mean_lat_ms      -3098768204949454.500 &lt;0.0000000000000002 ***
-mean_lowest_cost  2778241457606855.500 &lt;0.0000000000000002 ***
-mean_u_mbps       3199315472318010.000 &lt;0.0000000000000002 ***
-number_providers -3142680147117755.500 &lt;0.0000000000000002 ***
-has_computer      1765061923036970.500 &lt;0.0000000000000002 ***
----
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-
-Residual standard error: 0.0000000000000004863 on 172 degrees of freedom
-Multiple R-squared:      1,	Adjusted R-squared:      1 
-F-statistic: 2.974e+32 on 10 and 172 DF,  p-value: &lt; 0.00000000000000022
-</pre>
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div></section><section >
-<div  class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="We-will-end-up-using-coefficients-using-another-PCA-method">We will end up using coefficients using another PCA method<a class="anchor-link" href="#We-will-end-up-using-coefficients-using-another-PCA-method">&#182;</a></h2>
-</div>
-</div>
-</div>
-</div></section></section><section ><section >
-<div  class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h1 id="PCA-Method-2">PCA Method 2<a class="anchor-link" href="#PCA-Method-2">&#182;</a></h1>
-</div>
-</div>
-</div>
 </div>
 <div  class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
@@ -18236,11 +17175,10 @@ F-statistic: 2.974e+32 on 10 and 172 DF,  p-value: &lt; 0.00000000000000022
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id=""><a class="anchor-link" href="#">&#182;</a></h2>
+<p>We will end up using coefficients using another PCA method</p>
+
 </div>
 </div>
-</div>
-</div></section></section>
 </div>
 </div>
 </body>
@@ -18250,56 +17188,5 @@ F-statistic: 2.974e+32 on 10 and 172 DF,  p-value: &lt; 0.00000000000000022
 
 
 
-
-<script>
-require(
-    {
-      // it makes sense to wait a little bit when you are loading
-      // reveal from a cdn in a slow connection environment
-      waitSeconds: 15
-    },
-    [
-      "https://unpkg.com/reveal.js@4.0.2/dist/reveal.js",
-      "https://unpkg.com/reveal.js@4.0.2/plugin/notes/notes.js"
-    ],
-
-    function(Reveal, RevealNotes){
-        // Full list of configuration options available here: https://github.com/hakimel/reveal.js#configuration
-        Reveal.initialize({
-            controls: true,
-            progress: true,
-            history: true,
-            transition: "slide",
-            slideNumber: "",
-            plugins: [RevealNotes]
-        });
-
-        var update = function(event){
-          if(MathJax.Hub.getAllJax(Reveal.getCurrentSlide())){
-            MathJax.Hub.Rerender(Reveal.getCurrentSlide());
-          }
-        };
-
-        Reveal.addEventListener('slidechanged', update);
-
-        function setScrollingSlide() {
-            var scroll = true
-            if (scroll === true) {
-              var h = $('.reveal').height() * 0.95;
-              $('section.present').find('section')
-                .filter(function() {
-                  return $(this).height() > h;
-                })
-                .css('height', 'calc(95vh)')
-                .css('overflow-y', 'scroll')
-                .css('margin-top', '20px');
-            }
-        }
-
-        // check and set the scrolling slide every time the slide change
-        Reveal.addEventListener('slidechanged', setScrollingSlide);
-    }
-);
-</script>
 
 </html>

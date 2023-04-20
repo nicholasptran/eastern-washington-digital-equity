@@ -5,4 +5,4 @@ from dash import html
 
 dash.register_page(__name__, path="/")
 
-layout = dbc.Container(html.Div("home", className="dbc"))
+layout = dbc.Container(html.Div(html.H1("home"), className="dbc"))

@@ -18,6 +18,8 @@ app = Dash(
 navbar = dbc.NavbarSimple(
     [
         dbc.NavItem(dbc.NavLink("Test", href="/test")),
+        dbc.NavItem(dbc.NavLink("Collecting The Data", href="/collecting-data")),
+        dbc.NavItem(dbc.NavLink("analysis", href="/analysis")),
     ],
     brand="Eastern Washington Digital Equity",
     brand_href="/",
