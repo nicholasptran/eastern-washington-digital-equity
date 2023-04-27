@@ -6,7 +6,7 @@ library(ISLR)
 # Load data and remove rows with missing data
 (hitters <- na.omit(ISLR::Hitters) %>%
     as_tibble())
-
+names(hitters)
 # Finding the best variable in each step
 best_subset <- regsubsets(Salary ~ ., hitters, nvmax = 19)
 summary(best_subset)
