@@ -7,7 +7,7 @@ readme = "README.md"
 packages = [{include = "washington_digital_equity"}]
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = ">=3.11,<3.12"
 pandas = "^1.5.3"
 dash = "^2.9.2"
 plotly = "^5.14.0"
@@ -23,6 +23,11 @@ census = "^0.8.19"
 us = "^2.0.2"
 requests = "^2.28.2"
 geopandas = "^0.12.2"
+factor-analyzer = "^0.4.1"
+plotly-express = "^0.4.1"
+mlxtend = "^0.22.0"
+statsmodels = "^0.13.5"
+pingouin = "^0.5.3"
 
 
 [build-system]

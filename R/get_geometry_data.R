@@ -38,5 +38,5 @@ getCensusData <- function(variable) {
 
 # pick a random census variable
 geometry_data <- getCensusData("B05011_001") %>%
-    dplyr::select(tract, geometry)
-
+    dplyr::select(GEOID, tract, geometry)
+geometry_data

@@ -1,26 +1,17 @@
-source("app/R/scripts/get_geometry_data.R")
+source("R/get_geometry_data.R")
 library(RColorBrewer)
 library(leafpop)
-library(tidycensus)
-library(tidyverse)
-library(tigris)
-library(mapview)
-library(rgdal)
 library(sf)
-library(dplyr)
 
 
-
-
-index <- read.csv("app/data/pc_index.csv")
-data <- read.csv("app/data/combined_data.csv")
-# data <- data[1:27] %>% dplyr::select(-with_other, -only_tablet)
+index <- read.csv("data/final_index_data.csv")
+data <- read.csv("data/combined_data.csv")
 mapviewOptions(viewer.suppress = FALSE)
 
 # merge df
-index_plot <- merge(geometry_data, index) %>% dplyr::select(-X)
-index_plot <- merge(index_plot, data)
-
+index_plot <- merge(geometry_data, index)
+# index_plot <- merge(index_plot, data)
+head(index_plot)
 # counties vector
 counties <- c(
     "Adams", "Asotin", "Ferry", "Garfield", "Lincoln",
@@ -29,27 +20,18 @@ counties <- c(
 
 # get wa counties
 county_map <- counties("wa")
-
+county_map
 
 # filter counties
 county_map <- county_map %>%
     filter(NAME %in% counties) %>%
     dplyr::select(NAME, geometry)
+county_map
+
+save <- mapview(index_plot, zcol = "index", col.regions = brewer.pal(11, "RdYlGn"))
 
 
-save <- mapview(index_plot, zcol = 'index')
-# mapview(county_map, burst = TRUE, zcol = 'NAME') +
-mapview(index_plot, zcol = 'index')
+# https://www.datanovia.com/en/blog/the-a-z-of-rcolorbrewer-palette/
+mapview(index_plot, zcol = 'index', col.regions = brewer.pal(11, "RdYlGn"))
 
-# mapview(index_plot,
-#     zcol = c('tract', 'county'),
-#     # col.regions = brewer.pal(9, "Paired"),
-#     popup = popupTable(
-#         index_plot,
-#         zcol = "index"
-#     )
-# )
-
-
-# mapview(index_plot, zcol = 'index')
-
+mapshot(save, url = "map.html")
