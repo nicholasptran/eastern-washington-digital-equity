@@ -4,7 +4,6 @@ version = "0.1.0"
 description = ""
 authors = ["nicholas <nickptran@gmail.com>"]
 readme = "README.md"
-packages = [{include = "washington_digital_equity"}]
 
 [tool.poetry.dependencies]
 python = ">=3.11,<3.12"
@@ -28,6 +27,7 @@ plotly-express = "^0.4.1"
 mlxtend = "^0.22.0"
 statsmodels = "^0.13.5"
 pingouin = "^0.5.3"
+python-dotenv = "^1.0.0"
 
 
 [build-system]

@@ -1,6 +1,11 @@
 {
     "cSpell.words": [
+        "argsort",
+        "cumsum",
+        "dataframe",
+        "eigh",
         "iloc",
+        "rowvar",
         "sklearn"
     ]
 }

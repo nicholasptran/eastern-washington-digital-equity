@@ -2,3 +2,5 @@ local.R
 fcc.csv
 
 __pycache__
+docker.txt
+.env
