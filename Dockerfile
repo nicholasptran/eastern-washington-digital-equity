@@ -24,8 +24,6 @@ RUN poetry config virtualenvs.create false \
 COPY ./app /app
 WORKDIR /app
 
-run useradd -m appuser
-user appuser
-
-EXPOSE 3838
-CMD ["gunicorn", "-b", "0.0.0.0:8050", "--reload", "app:server"]
+EXPOSE 8050
+CMD ["gunicorn", "--reload", "app:server"]
+# CMD ["python", "app.py"]

@@ -1,11 +1,11 @@
 """app"""
-
+import os
 import dash
 import dash_bootstrap_components as dbc
 from dash import Dash, html
 from dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv(".env")
 
 DBC_CSS = "https://cdn.jsdelivr.net/gh/AnnMarieW/dash-bootstrap-templates/dbc.min.css"
 
@@ -56,4 +56,4 @@ app.layout = html.Div(
 )
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, proxy=os.environ["DASH_PROXY"], host="0.0.0.0", port=8050)
