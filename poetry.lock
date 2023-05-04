@@ -978,6 +978,27 @@ pyproj = ">=2.6.1.post1"
 shapely = ">=1.7"
 
 [[package]]
+name = "gunicorn"
+version = "20.1.0"
+description = "WSGI HTTP Server for UNIX"
+category = "main"
+optional = false
+python-versions = ">=3.5"
+files = [
+    {file = "gunicorn-20.1.0-py3-none-any.whl", hash = "sha256:9dcc4547dbb1cb284accfb15ab5667a0e5d1881cc443e0677b4882a4067a807e"},
+    {file = "gunicorn-20.1.0.tar.gz", hash = "sha256:e0a968b5ba15f8a328fdfd7ab1fcb5af4470c28aaf7e55df02a99bc13138e6e8"},
+]
+
+[package.dependencies]
+setuptools = ">=3.0"
+
+[package.extras]
+eventlet = ["eventlet (>=0.24.1)"]
+gevent = ["gevent (>=1.4.0)"]
+setproctitle = ["setproctitle"]
+tornado = ["tornado (>=0.2)"]
+
+[[package]]
 name = "identify"
 version = "2.5.23"
 description = "File identification library for Python"
@@ -2977,17 +2998,6 @@ files = [
 ]
 
 [[package]]
-name = "sklearn"
-version = "0.0.post4"
-description = "deprecated sklearn package, use scikit-learn instead"
-category = "main"
-optional = false
-python-versions = "*"
-files = [
-    {file = "sklearn-0.0.post4.tar.gz", hash = "sha256:0e81ec9c32d4bb418e7be8f1ec1027d174975502dc84cbc4f4564b4cba31e674"},
-]
-
-[[package]]
 name = "sniffio"
 version = "1.3.0"
 description = "Sniff out which async library your code is running under"
@@ -3367,4 +3377,4 @@ viz = ["matplotlib", "nc-time-axis", "seaborn"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.11,<3.12"
-content-hash = "6b12246988150ea78bb4d7a6fc7341e493569166769ab98081664fdb2d51bdd7"
+content-hash = "cb6d9839561549161468386a01d883ec872e8b169a2ee49d5db162de944c3734"

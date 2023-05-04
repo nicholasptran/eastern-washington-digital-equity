@@ -15,7 +15,6 @@ ipykernel = "^6.22.0"
 black = "^23.3.0"
 dash-bootstrap-components = "^1.4.1"
 dash-bootstrap-templates = "^1.0.8"
-sklearn = "^0.0.post1"
 scikit-learn = "^1.2.2"
 nbconvert = "^7.3.1"
 census = "^0.8.19"
@@ -30,6 +29,7 @@ pingouin = "^0.5.3"
 python-dotenv = "^1.0.0"
 matplotlib = "^3.7.1"
 kneed = "^0.8.3"
+gunicorn = "^20.1.0"
 
 
 [build-system]
