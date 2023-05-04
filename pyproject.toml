@@ -30,6 +30,7 @@ python-dotenv = "^1.0.0"
 matplotlib = "^3.7.1"
 kneed = "^0.8.3"
 gunicorn = "^20.1.0"
+colorlover = "^0.3.0"
 
 
 [build-system]

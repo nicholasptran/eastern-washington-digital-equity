@@ -36,6 +36,8 @@ class PCA:
 
         # kmo, total kmo
         self.kmo, self.total_kmo = calculate_kmo(self.scaled)
+        self.kmo = pd.DataFrame(self.data.columns, self.kmo).reset_index()
+        self.kmo = self.kmo.rename(columns={"index": "KMO", 0: "Variables"})
 
         # center data
         self.center = self.scaled.apply(lambda x: x - x.mean())
@@ -61,7 +63,7 @@ class PCA:
         self.loadings = pd.DataFrame(
             self.loadings, index=self.scaled.columns, columns=pc_list
         )
-        self.eigenvalues = pd.DataFrame(self.eigenvalues, index=pc_list)
+        self.eigenvalues = pd.DataFrame(self.eigenvalues, index=pc_list, columns=["eigenvalues"])
 
         # pca scores - scaled data * loadings
         self.scores = self.scaled @ self.loadings
@@ -119,3 +121,4 @@ class PCA:
 
 
 dataset = pd.read_csv("data/combined_data.csv").drop(columns=["GEOID", "tract"])
+data = PCA(dataset)
