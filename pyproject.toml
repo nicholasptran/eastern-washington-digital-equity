@@ -28,6 +28,8 @@ mlxtend = "^0.22.0"
 statsmodels = "^0.13.5"
 pingouin = "^0.5.3"
 python-dotenv = "^1.0.0"
+matplotlib = "^3.7.1"
+kneed = "^0.8.3"
 
 
 [build-system]

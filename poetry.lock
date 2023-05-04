@@ -1433,6 +1433,26 @@ files = [
 ]
 
 [[package]]
+name = "kneed"
+version = "0.8.3"
+description = "Knee-point detection in Python"
+category = "main"
+optional = false
+python-versions = ">=3.5"
+files = [
+    {file = "kneed-0.8.3-py3-none-any.whl", hash = "sha256:8d31366cbd5af929057d4c8701f0eae96460cb995dfc6306ae3183051086a82a"},
+    {file = "kneed-0.8.3.tar.gz", hash = "sha256:2f9e60b3a76eb36dbaebecc0c52c42185effbec8168c57a7ad0753871bc7d484"},
+]
+
+[package.dependencies]
+numpy = ">=1.14.2"
+scipy = ">=1.0.0"
+
+[package.extras]
+plot = ["matplotlib (>=2.2.5)"]
+testing = ["matplotlib (>=2.2.5)", "pytest (>=5.0.1)", "pytest-cov (>=3.0.0)"]
+
+[[package]]
 name = "lazy-loader"
 version = "0.2"
 description = "lazy_loader"
@@ -3347,4 +3367,4 @@ viz = ["matplotlib", "nc-time-axis", "seaborn"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.11,<3.12"
-content-hash = "4f9b45b5f568842769e6b6fbac196529edeb8a50b75f93d852cf6a8c9be146c3"
+content-hash = "6b12246988150ea78bb4d7a6fc7341e493569166769ab98081664fdb2d51bdd7"
