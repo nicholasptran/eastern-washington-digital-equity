@@ -21,7 +21,7 @@ server = app.server
 
 navbar = dbc.NavbarSimple(
     [
-        dbc.NavItem(dbc.NavLink("Introduction", href="/")),
+        dbc.NavItem(dbc.NavLink("Home", href="/")),
         dbc.NavItem(dbc.NavLink("Getting Started", href="/getting-started")),
         dbc.NavItem(dbc.NavLink("Collecting The Data", href="/collecting-data")),
         dbc.NavItem(dbc.NavLink("The Data", href="/the-data")),
