@@ -4,6 +4,8 @@ We created an index to determine which tracts in eastern Washington have **acces
 **high-speed** internet. We collected data from the American Community Survey
 5-year estimates (acs5), Ookla, and the Federal Communications Commission (FCC).
 
+Eastern Washington Counties:
+
 
 
 .. note::
@@ -14,10 +16,10 @@ Contents
 --------
 
 .. toctree::
-   :maxdepth 2
+   :maxdepth 3
 
-   gather_data
-   clean_data
-   getting_started
+   requirements
+   data
+   
    usage
    api
