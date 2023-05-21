@@ -4,3 +4,6 @@ libssl-dev
 libudunits2-dev
 libproj-dev
 libgdal-dev
+libjq-dev
+libprotobuf-dev
+protobuf-compiler
