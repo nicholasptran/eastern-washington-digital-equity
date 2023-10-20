@@ -1,8 +1,48 @@
-[build-system]
-requires = ["flit_core >=3.2,<4"]
-build-backend = "flit_core.buildapi"
+[tool.poetry]
+name = "eastern-washington-digital-equity"
+version = "0.1.0"
+description = ""
+authors = [
+    "Nicholas Tran <nickptran@gmail.com>",
+    "Juliana Reyes <juliannareyes1224@gmail.com>",
+    "Trevor Meyers <myerstrev1128@gmail.com>"
+]
+readme = "README.md"
 
-[project]
-name = "lumache"
-authors = [{name = "Graziella", email = "graziella@lumache"}]
-dynamic = ["version", "description"]
+[tool.poetry.dependencies]
+python = ">=3.11,<3.12"
+pandas = "^1.5.3"
+dash = "^2.9.2"
+plotly = "^5.14.0"
+notebook = "^6.5.3"
+ipykernel = "^6.22.0"
+black = "^23.3.0"
+dash-bootstrap-components = "^1.4.1"
+dash-bootstrap-templates = "^1.0.8"
+scikit-learn = "^1.2.2"
+nbconvert = "^7.3.1"
+census = "^0.8.19"
+us = "^2.0.2"
+requests = "^2.28.2"
+geopandas = "^0.12.2"
+factor-analyzer = "^0.4.1"
+plotly-express = "^0.4.1"
+mlxtend = "^0.22.0"
+statsmodels = "^0.13.5"
+pingouin = "^0.5.3"
+python-dotenv = "^1.0.0"
+matplotlib = "^3.7.1"
+kneed = "^0.8.3"
+gunicorn = "^20.1.0"
+colorlover = "^0.3.0"
+flit-core = "^3.9.0"
+optuna = "^3.2.0"
+xgboost = "^1.7.5"
+iprogress = "^0.4"
+lime = "^0.2.0.1"
+imblearn = "^0.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

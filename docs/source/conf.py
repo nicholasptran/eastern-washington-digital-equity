@@ -2,9 +2,9 @@
 
 # -- Project information
 
-project = 'Lumache'
-copyright = '2021, Graziella'
-author = 'Graziella'
+project = 'Eastern Washington Digital Equity'
+copyright = '2023, Nicholas Tran, Juliana Reyes, Trevor Meyers'
+author = 'Nicholas Tran, Juliana Reyes, Trevor Meyers'
 
 release = '0.1'
 version = '0.1.0'
